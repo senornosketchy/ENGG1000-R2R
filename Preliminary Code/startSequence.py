@@ -47,12 +47,9 @@ def stop():
 
 
 """
-    The default action is to spin around in an attempt to detect any object
-    within a certain radius using the ultrasonic sensor.
-    If the ultrasonic detects anything within 750mm the robot's reacts by "charging" at the object
+Main start sequence code
 
 """
-
 
 def startSequence(spinDirection):
     sleep(3)
@@ -60,6 +57,7 @@ def startSequence(spinDirection):
         search(spinDirection)
         if us.value < 750:
             drive(100, 100)
+        else:
+            search(spinDirection)
 
 # Stop the motors before exiting.
-stop()
