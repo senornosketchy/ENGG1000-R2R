@@ -132,4 +132,4 @@ while not btn.any():
     if us.value > 750:
         lost()
     elif us.value < 750 and cs.value() > 30:
-        drive(200, 200)
+        drive(100, 100)

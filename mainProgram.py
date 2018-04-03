@@ -47,6 +47,7 @@ def stop():
 
     rightMotor.stop(stop_action='brake')
 
+
 # Basic Start sequence
 def startSequence(spinDirection):
     sleep(3)
@@ -57,11 +58,12 @@ def startSequence(spinDirection):
         else:
             search(spinDirection)
 
+
 # If the robot cannot see the other bot after the starting sequence
 def lost():
     # If robot cannot find object drive forward to boundary then do another check
 
     # Below loop, keeps the robot driving back and forth till target is found.
     while cs.value() > 30:
-        drive(200, 200)
+        drive(100, 100)
     # Didn't know the code, to make it spin 180 degrees.
