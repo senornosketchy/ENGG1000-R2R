@@ -61,10 +61,10 @@ def start_sequence(spinDirection):
 def lost():
     # If robot cannot find object drive forward to boundary then do another check
     # Below loop, keeps the robot driving back and forth till target is found.
-    while cs.value() > 30:
-        drive(-80, -80)
-    search()
-     
+    while us.value < 750:
+        while cs.value() > 30:
+            drive(-80, -80)
+        search(spinDirection)
     # Didn't know the code, to make it spin 180 degrees.
 
 while not btn.any():
