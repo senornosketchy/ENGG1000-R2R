@@ -49,7 +49,7 @@ def stop():
 
 
 # Basic Start sequence
-def startSequence(spinDirection):
+def start_sequence(spinDirection):
     sleep(3)
     while gs.value() < 150:
         search(spinDirection)
@@ -67,3 +67,6 @@ def lost():
     while cs.value() > 30:
         drive(100, 100)
     # Didn't know the code, to make it spin 180 degrees.
+
+
+while 
