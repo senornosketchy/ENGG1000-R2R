@@ -14,11 +14,11 @@ assert leftMotor.connected
 
 # Connect sensors
 
-us = UltrasonicSensor()
+us = UltrasonicSensor(INPUT_1)
 
-cs = ColorSensor()
+cs = ColorSensor(INPUT_4)
 
-gs = GyroSensor()
+gs = GyroSensor(INPUT_2)
 
 gs.mode = 'GYRO-ANG'  # Set gyro mode to return compass angle
 
@@ -66,7 +66,7 @@ def lost():
     while us.value > 750:
         while cs.value() > 30:
             drive(-80, -80)
-        search(spinDirection)
+        search(1)
     # Didn't know the code, to make it spin 180 degrees.
 
 
