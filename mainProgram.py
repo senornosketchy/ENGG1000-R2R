@@ -4,6 +4,7 @@ import sys, os
 # Import the ev3dev specific library
 from ev3dev.ev3 import *
 
+print("1")
 # Connect motors
 rightMotor = LargeMotor(OUTPUT_C)
 
@@ -13,7 +14,7 @@ leftMotor = LargeMotor(OUTPUT_B)
 assert leftMotor.connected
 
 # Connect sensors
-
+print("2")
 us = UltrasonicSensor(INPUT_1)
 
 cs = ColorSensor(INPUT_4)
@@ -69,10 +70,11 @@ def lost():
         search(1)
     # Didn't know the code, to make it spin 180 degrees.
 
-
+print("3")
 while not btn.on_down():
     cs.mode = 'COL-REFLECT'
     if btn.on_left():
         start_sequence(1)
     if btn.on_right():
         start_sequence(-1)
+print("4")
