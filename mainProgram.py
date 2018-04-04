@@ -1,8 +1,8 @@
-from time import sleep
+# from time import sleep
 
 print("FUCKING PRINT")
 
-sleep(2)
+# sleep(2)
 
 # Import the ev3dev specific library
 from ev3dev.ev3 import *
@@ -53,7 +53,7 @@ def stop():
 
 # Basic Start sequence
 def start_sequence(spinDirection):
-    sleep(3)
+    # sleep(3)
     Sound.speak('DIE')
     while gs.value() < 150:
         search(spinDirection)
@@ -82,4 +82,4 @@ while not btn.on_down():
         start_sequence(-1)
 print("4")
 
-sleep(3)
+# sleep(3)
