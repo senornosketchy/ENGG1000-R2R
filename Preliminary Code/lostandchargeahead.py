@@ -50,7 +50,7 @@ assert us.connected
 gs = GyroSensor()
 assert gs.connected
 cs = ColorSensor()
-assert gs.connected
+assert cs.connected
 
 gs.mode = 'GYRO-RATE'  # Changing the mode resets the gyro
 gs.mode = 'GYRO-ANG'  # Set gyro mode to return compass angle
