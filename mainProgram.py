@@ -1,5 +1,7 @@
 from time import sleep
 
+print("FUCKING PRINT")
+
 sleep(2)
 
 # Import the ev3dev specific library
