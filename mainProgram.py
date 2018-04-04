@@ -1,5 +1,7 @@
 from time import sleep
 
+sleep(2)
+
 # Import the ev3dev specific library
 from ev3dev.ev3 import *
 
@@ -77,3 +79,5 @@ while not btn.on_down():
     if btn.on_right():
         start_sequence(-1)
 print("4")
+
+sleep(3)
