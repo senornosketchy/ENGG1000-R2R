@@ -1,5 +1,4 @@
 from time import sleep
-import sys, os
 
 # Import the ev3dev specific library
 from ev3dev.ev3 import *
