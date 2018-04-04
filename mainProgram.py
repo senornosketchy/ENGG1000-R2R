@@ -55,7 +55,7 @@ def start_sequence(spinDirection):
         if us.value < 750 and cs.value() > 30:
             drive(100, 100)
         else:
-            search(spinDirection)
+            lost()
 
 # If the robot cannot see the other bot after the starting sequence
 def lost():
@@ -63,6 +63,8 @@ def lost():
     # Below loop, keeps the robot driving back and forth till target is found.
     while cs.value() > 30:
         drive(-80, -80)
+    search()
+     
     # Didn't know the code, to make it spin 180 degrees.
 
 while not btn.any():
