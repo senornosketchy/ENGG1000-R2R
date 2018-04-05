@@ -22,7 +22,7 @@ us = UltrasonicSensor(INPUT_1)
 
 cs = ColorSensor(INPUT_4)
 
-ts = touchSensor(INPUT_3)
+ts = TouchSensor(INPUT_3)
 
 gs = GyroSensor(INPUT_2)
 
