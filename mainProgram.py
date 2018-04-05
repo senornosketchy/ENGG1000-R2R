@@ -76,11 +76,11 @@ def lost():
     # Didn't know the code, to make it spin 180 degrees.
 
 print("3")
-while not btn.on_down():
+while not btn.down():
     cs.mode = 'COL-REFLECT'
-    if btn.on_left():
+    if btn.left():
         start_sequence(1)
-    if btn.on_right():
+    if btn.right():
         start_sequence(-1)
 print("4")
 
