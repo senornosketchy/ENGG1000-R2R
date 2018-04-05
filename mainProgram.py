@@ -3,6 +3,7 @@
 # sleep(2)
 
 # Import the ev3dev specific library
+from time import sleep
 from ev3dev.ev3 import *
 
 
@@ -59,6 +60,9 @@ def start_sequence(spinDirection):
     Sound.speak('WAAAALLL E')
     gs.mode = 'GYRO-ANG'
     while gs.value() < 150 and gs.value() > -150:
+        print("US Value is:", us.value())
+        print("Gyroscope is:", gs.value())
+        sleep(0.1)
         search(spinDirection)
         if us.value < 750 and cs.value() > 30:
             drive(100, 100)
