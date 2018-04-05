@@ -77,12 +77,13 @@ def lost():
 
 
 print("3")
-while not btn.on_down(true):
+while not btn.any():
     cs.mode = 'COL-REFLECT'
-    if btn.left():
-        start_sequence(1)
-    if btn.right():
-        start_sequence(-1)
+    start_sequence(1)
+    #if btn.left():
+    #    start_sequence(1)
+    #if btn.right():
+    #    start_sequence(-1)
 print("4")
 
 # sleep(3)
