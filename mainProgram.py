@@ -57,6 +57,7 @@ def stop():
 def start_sequence(spinDirection):
     # sleep(3)
     Sound.speak('DIE DIE DIE')
+    gs.mode
     while gs.value() < 150:
         search(spinDirection)
         if us.value < 750 and cs.value() > 30:
