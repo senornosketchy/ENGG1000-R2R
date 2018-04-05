@@ -58,7 +58,7 @@ def start_sequence(spinDirection):
     # sleep(3)
     Sound.speak('WAAAAL E')
     gs.mode
-    while gs.value() < 150 and us.value > 750:
+    while gs.value() < 150:
         search(spinDirection)
         if us.value < 750 and cs.value() > 30:
             drive(100, 100)
@@ -79,6 +79,7 @@ def lost():
 
 print("3")
 while not btn.any():
+    print(gs.value())
     cs.mode = 'COL-REFLECT'
     start_sequence(1)
     #if btn.left():
