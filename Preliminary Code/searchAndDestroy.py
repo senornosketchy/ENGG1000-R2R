@@ -70,8 +70,6 @@ tsRIGHT = TouchSensor(INPUT_3);	assert tsRIGHT.connected
 
 print("3")
 
-tsLEFT = TouchSensor(INPUT_2);	assert tsLEFT.connected
-
 print("4")
 
 us = UltrasonicSensor()
@@ -124,12 +122,6 @@ while not btn.any():
     print(us.value)
     if us.value() < 750:
         drive(100, 100)
-    elif tsRIGHT.value() and tsLEFT.value():
-        drive(100, 100)
-    elif tsRIGHT.value() and not tsLEFT.value():
-        drive(100, 50)
-    elif tsLEFT.value() and not tsRIGHT.value():
-        drive(50, 100)
     else:
         searchClockwise()
 # Stop the motors before exiting.
