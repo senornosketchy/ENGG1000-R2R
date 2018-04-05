@@ -75,8 +75,9 @@ def lost():
         search(1)
     # Didn't know the code, to make it spin 180 degrees.
 
+
 print("3")
-while not btn.down():
+while not btn.on_down(true):
     cs.mode = 'COL-REFLECT'
     if btn.left():
         start_sequence(1)
