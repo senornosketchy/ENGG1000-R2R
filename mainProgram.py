@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 from time import sleep
 
-print("FUCKING PRINT")
-
 # sleep(2)
 
 # Import the ev3dev specific library
 from ev3dev.ev3 import *
 
+
+print("FUCKING PRINT")
 print("1")
 # Connect motors
 rightMotor = LargeMotor(OUTPUT_C)
