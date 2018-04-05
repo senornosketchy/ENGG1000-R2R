@@ -122,6 +122,8 @@ while not btn.any():
     print(us.value)
     if us.value() < 750:
         drive(100, 100)
+    elif tsRIGHT.value:
+        drive(100, 100)
     else:
         searchClockwise()
 # Stop the motors before exiting.
