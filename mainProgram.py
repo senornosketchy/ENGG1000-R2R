@@ -57,7 +57,7 @@ def stop():
 def start_sequence(spinDirection):
     # sleep(3)
     Sound.speak('WAAAALLL E')
-    gs.mode
+    gs.mode = 'GYRO-ANG'
     while gs.value() < 150:
         search(spinDirection)
         if us.value < 750 and cs.value() > 30:
