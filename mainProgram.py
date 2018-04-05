@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from time import sleep
 
 # sleep(2)
 
@@ -54,7 +53,7 @@ def stop():
 
 # Basic Start sequence
 def start_sequence(spinDirection):
-    sleep(3)
+    # sleep(3)
     Sound.speak('DIE')
     while gs.value() < 150:
         search(spinDirection)
