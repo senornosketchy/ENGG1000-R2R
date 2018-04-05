@@ -22,6 +22,8 @@ us = UltrasonicSensor(INPUT_1)
 
 cs = ColorSensor(INPUT_4)
 
+ts = touchSensor(INPUT_3)
+
 gs = GyroSensor(INPUT_2)
 
 gs.mode = 'GYRO-ANG'  # Set gyro mode to return compass angle
