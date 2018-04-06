@@ -70,6 +70,8 @@ tsRIGHT = TouchSensor(INPUT_3);	assert tsRIGHT.connected
 
 print("3")
 
+tsLEFT = TouchSensor(INPUT_3); assert tsLEFT.connected
+
 print("4")
 
 us = UltrasonicSensor()
@@ -113,17 +115,23 @@ def stop():
 """
     The default action is to spin around in an attempt to detect any object
     within a certain radius using the ultrasonic sensor.
-    If the ultrasonic detects anything within 750mm the robot's reacts by "charging" at the object
+    If the ultrasonic detects anything within 500mm the robot's reacts by "charging" at the object
     
 """
 print(5)
 searchClockwise()
 while not btn.any():
     print(us.value)
-    if us.value() < 750:
+    if us.value() < 500 and cs.value() > 30:
         drive(100, 100)
-    elif tsRIGHT.value:
+    elif tsLEFT.value() and not tsRIGHT.value():
+        drive(100, 80)
+    elif tsRIGHT.value() and not tsLEFT.value():
+        drive(80, 100)
+    elif tsRIGHT.value() and tsLEFT.value():
         drive(100, 100)
+    elif cs.value() < 25:
+        drive(100,100)
     else:
         searchClockwise()
 # Stop the motors before exiting.
