@@ -16,7 +16,6 @@ print(1)
 
 # Connect motors
 rightMotor = LargeMotor(OUTPUT_C)
-
 assert rightMotor.connected
 
 leftMotor = LargeMotor(OUTPUT_B)
@@ -37,7 +36,7 @@ assert us.connected
 cs = ColorSensor(INPUT_4)
 assert cs.connected
 
-print("All Connected");
+print("All Connected")
 
 # The gyro is reset when the mode is changed, so the first line is extra, just so we
 # can change the mode the 'GYRO-ANGLE', which is what we want
