@@ -76,7 +76,17 @@ while not btn.any():
     cs.mode = 'COL-REFLECT'
     start_sequence(1)
     lost()
-    
+    if us.value() < 400 and cs.value() > 40:
+        drive(100, 100)
+    elif tsLEFT.value() and not tsRIGHT.value():
+        drive(100, 80)
+    elif tsRIGHT.value() and not tsLEFT.value():
+        drive(80, 100)
+    elif tsRIGHT.value() and tsLEFT.value():
+        drive(100, 100)
+    else:
+        continue
+        
     #if btn.left():
     #    start_sequence(1)
     #if btn.right():
