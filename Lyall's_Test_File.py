@@ -2,7 +2,7 @@
 Created on Thu Mar 22 15:07:43 2018
 @author: Tanvee
 First attempt at an program for the EV3 bot.
-The main aim of this is to develop an algorithm to searchclockwise for and identify
+The main aim of this is to develop an algorithm to search clockwise for and identify
 close objects, before rushing to meet them.
 """
 print(0)
@@ -71,7 +71,6 @@ def main():
         drive(100, -100)
         sleep(3)
         stop()
-
 
 
 """
