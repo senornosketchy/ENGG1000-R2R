@@ -26,10 +26,9 @@ def stop():
     # Stop both motors
     leftMotor.stop(stop_action='brake')
     rightMotor.stop(stop_action='brake')
-    
+
 
 for i in range(0, 1000, 10):
     drive(i)
     sleep(5)
 
-stop()
