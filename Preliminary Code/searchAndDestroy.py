@@ -127,7 +127,7 @@ def stop():
 print(5)
 searchclockwise()
 while not btn.any():
-    print(us.value())
+    print(tsLEFT.value())
     if us.value() < 400 and cs.value() > 40:
         drive(100, 100)
     elif tsLEFT.value() and not tsRIGHT.value():
