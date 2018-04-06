@@ -10,4 +10,4 @@ btn = Button()
 
 while not btn.any():
     sleep(0.1)
-    print(us.value())
+    print(us.value()/10, "cm")
