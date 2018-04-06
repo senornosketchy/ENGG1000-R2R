@@ -23,7 +23,8 @@ us = UltrasonicSensor(INPUT_1)
 
 cs = ColorSensor(INPUT_4)
 
-ts = TouchSensor(INPUT_3)
+tsright = TouchSensor(INPUT_3)
+tsleft = TouchSensor(INPUT_2)
 
 
 # Declaring buttons
