@@ -5,12 +5,14 @@ First attempt at an program for the EV3 bot.
 The main aim of this is to develop an algorithm to searchclockwise for and identify
 close objects, before rushing to meet them.
 """
-
+print(0)
 from time import sleep
 import sys, os
 
 # Import the ev3dev specific library
 from ev3dev.ev3 import *
+
+print(1)
 
 # Connect motors
 rightMotor = LargeMotor(OUTPUT_C)
@@ -21,6 +23,7 @@ leftMotor = LargeMotor(OUTPUT_B)
 assert leftMotor.connected
 
 # Connect sensors
+print(2)
 
 tsRIGHT = TouchSensor(INPUT_3)
 assert tsRIGHT.connected
