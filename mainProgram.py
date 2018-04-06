@@ -83,7 +83,6 @@ def lost():
 
 print("3")
 while not btn.any():
-    print(gs.value())
     cs.mode = 'COL-REFLECT'
     start_sequence(1)
     #if btn.left():

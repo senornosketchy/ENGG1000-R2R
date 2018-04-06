@@ -37,7 +37,7 @@ Created on Thu Mar 22 15:07:43 2018
 @author: Tanvee
 
 First attempt at an program for the EV3 bot.
-The main aim of this is to develop an algorithm to searchClockwise for and identify
+The main aim of this is to develop an algorithm to searchclockwise for and identify
 close objects, before rushing to meet them.
 
 """
@@ -66,11 +66,13 @@ assert leftMotor.connected
 
 print("2")
 
-tsRIGHT = TouchSensor(INPUT_3);	assert tsRIGHT.connected
+tsRIGHT = TouchSensor(INPUT_3)
+assert tsRIGHT.connected
 
 print("3")
 
-tsLEFT = TouchSensor(INPUT_3); assert tsLEFT.connected
+tsLEFT = TouchSensor(INPUT_3)
+assert tsLEFT.connected
 
 print("4")
 
@@ -100,11 +102,13 @@ def drive(left, right):
     rightMotor.run_direct(duty_cycle_sp=right)
 
 
-def searchClockwise():
+def searchclockwise():
     drive(-100, 100)
 
-def searchAntiClockwise():
+
+def searchanticlockwise():
     drive(100, -100)
+
 
 def stop():
     # Stop both motors
@@ -119,10 +123,10 @@ def stop():
     
 """
 print(5)
-searchClockwise()
+searchclockwise()
 while not btn.any():
     print(us.value)
-    if us.value() < 500 and cs.value() > 30:
+    if us.value() < 500 and cs.value() > 40:
         drive(100, 100)
     elif tsLEFT.value() and not tsRIGHT.value():
         drive(100, 80)
@@ -130,9 +134,9 @@ while not btn.any():
         drive(80, 100)
     elif tsRIGHT.value() and tsLEFT.value():
         drive(100, 100)
-    elif cs.value() < 25:
-        drive(100,100)
+    elif cs.value() < 40:
+        drive(100, 100)
     else:
-        searchClockwise()
+        searchclockwise()
 # Stop the motors before exiting.
 stop()
