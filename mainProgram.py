@@ -23,7 +23,8 @@ us = UltrasonicSensor(INPUT_1)
 
 cs = ColorSensor(INPUT_4)
 
-ts = TouchSensor(INPUT_3)
+tsRIGHT = TouchSensor(INPUT_3)
+tsLEFT = TouchSensor(INPUT_2)
 
 
 # Declaring buttons
@@ -63,7 +64,7 @@ def start_sequence(spinDirection):
 def lost():
     # If robot cannot find object drive forward to boundary then do another check
     # Below loop, keeps the robot driving back and forth till target is found.
-    while us.value > 750:
+    while us.value > 750 or not tsLEFT.value() or not tsRIGHT.value():
         while cs.value() > 30:
             drive(-80, -80)
         search(1)
@@ -74,6 +75,18 @@ print("3")
 while not btn.any():
     cs.mode = 'COL-REFLECT'
     start_sequence(1)
+    lost()
+    if us.value() < 400 and cs.value() > 40:
+        drive(100, 100)
+    elif tsLEFT.value() and not tsRIGHT.value():
+        drive(100, 80)
+    elif tsRIGHT.value() and not tsLEFT.value():
+        drive(80, 100)
+    elif tsRIGHT.value() and tsLEFT.value():
+        drive(100, 100)
+    else:
+        continue
+        
     #if btn.left():
     #    start_sequence(1)
     #if btn.right():
