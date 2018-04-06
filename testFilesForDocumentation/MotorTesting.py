@@ -28,7 +28,8 @@ def stop():
     rightMotor.stop(stop_action='brake')
 
 
-for i in range(0, 1000, 10):
+for i in range(0, 100, 10):
     drive(i)
     sleep(5)
+stop()
 

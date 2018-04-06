@@ -59,11 +59,12 @@ def stop():
     leftMotor.stop(stop_action='brake')
     rightMotor.stop(stop_action='brake')
 
+
 def main():
     print(btn.buttons_pressed)
-    if(btn.left)
+    if btn.left:
         stop()
-    if(btn.right)
+    if btn.right:
         print("The button was pressed")
         drive(100, -100)
         sleep(3)
@@ -78,4 +79,5 @@ def main():
 
 """
 
-
+while True:
+    main()
