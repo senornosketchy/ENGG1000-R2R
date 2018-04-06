@@ -71,16 +71,18 @@ assert tsRIGHT.connected
 
 print("3")
 
-tsLEFT = TouchSensor(INPUT_3)
+tsLEFT = TouchSensor(INPUT_2)
 assert tsLEFT.connected
 
 print("4")
 
 us = UltrasonicSensor()
+assert us.connected
 
 print("5")
 
 cs = ColorSensor(INPUT_4)
+assert cs.connected
 
 # The gyro is reset when the mode is changed, so the first line is extra, just so we
 # can change the mode the 'GYRO-ANGLE', which is what we want
