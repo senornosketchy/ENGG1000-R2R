@@ -56,7 +56,11 @@ def stop():
 def start_sequence(spinDirection):
     # sleep(3)
     Sound.speak('WAAAALLL E')
-    
+    while not btn.any():
+        if us.value() < 500:
+            drive(100, 100)
+        else:
+            search(1)
 
 
 
@@ -64,7 +68,7 @@ def start_sequence(spinDirection):
 def lost():
     # If robot cannot find object drive forward to boundary then do another check
     # Below loop, keeps the robot driving back and forth till target is found.
-    while us.value > 750 or not tsLEFT.value() or not tsRIGHT.value():
+    while us.value > 750 and not tsLEFT.value() and not tsRIGHT.value():
         while cs.value() > 30:
             drive(-80, -80)
         search(1)
