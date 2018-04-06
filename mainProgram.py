@@ -25,9 +25,6 @@ cs = ColorSensor(INPUT_4)
 
 ts = TouchSensor(INPUT_3)
 
-gs = GyroSensor(INPUT_2)
-
-gs.mode = 'GYRO-ANG'  # Set gyro mode to return compass angle
 
 # Declaring buttons
 btn = Button()
@@ -58,16 +55,8 @@ def stop():
 def start_sequence(spinDirection):
     # sleep(3)
     Sound.speak('WAAAALLL E')
-    gs.mode = 'GYRO-ANG'
-    while gs.value() < 150 and gs.value() > -150:
-        print("US Value is:", us.value())
-        print("Gyroscope is:", gs.value())
-        sleep(0.1)
-        search(spinDirection)
-        if us.value < 750 and cs.value() > 30:
-            drive(100, 100)
-        else:
-            lost()
+    
+
 
 
 # If the robot cannot see the other bot after the starting sequence
