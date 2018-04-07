@@ -43,7 +43,7 @@ def stop():
     rightMotor.stop(stop_action='brake')
 
 
-def mainProgram(direction)
+def mainProgram(direction):
     while True:  # while no button is pressing pressed do the following
         sleep(3)
         cs.mode = 'COL-REFLECT'
