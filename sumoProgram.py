@@ -43,29 +43,30 @@ def stop():
     rightMotor.stop(stop_action='brake')
 
 
-print("------------- ----------- ------------- |       |")
-print("      |       |           |             |       |")
-print("      |       |           |             |       |")
-print("      |       |---------  |             |-------|")
-print("      |       |           |             |       |")
-print("      |       |           |             |       |")
-print("      |       ----------  ------------- |       |")
-sleep(3)
+def mainProgram(direction)
+    while True:  # while no button is pressing pressed do the following
+        cs.mode = 'COL-REFLECT'
+        if tsRight.value() and tsLeft.value():
+            drive(100, 100)
+        elif us.value() < 40:
+            drive(100, 100)
+        elif tsLeft.value() and not tsRight.value():
+            drive(80, 50)
+        elif tsRight.value() and not tsLeft.value():
+            drive(50, 80)
+        elif us.value < 750 and cs.value() > 40:
+            drive(50, 50)
+        elif btn.backspace:
+            break
+        else:
+            search(direction)
+    stop()
 
-while not btn.any():  # while no button is pressing pressed do the following
-    cs.mode = 'COL-REFLECT'
-    if tsRight.value() and tsLeft.value():
-        drive(100, 100)
-    elif us.value() < 40:
-        drive(100, 100)
-    elif tsLeft.value() and not tsRight.value():
-        drive(80, 50)
-    elif tsRight.value() and not tsLeft.value():
-        drive(50, 80)
-    elif us.value < 750 and cs.value() > 40:
-        drive(50, 50)
-    elif us.value() > 750:
-        search(1)
-    elif btn.backspace:
-        break
-stop()
+while True:
+    if btn.left:
+        mainProgram(1)
+    elif btn.right:
+        mainProgram(-1)
+
+
+
