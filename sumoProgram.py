@@ -55,7 +55,7 @@ def mainProgram(direction):
             drive(80, 50)
         elif tsRight.value() and not tsLeft.value():
             drive(50, 80)
-        elif us.value < 750 and cs.value() > 40:
+        elif us.value() < 750 and cs.value() > 40:
             drive(50, 50)
         elif btn.backspace:
             break
