@@ -45,6 +45,7 @@ def stop():
 
 def mainProgram(direction)
     while True:  # while no button is pressing pressed do the following
+        sleep(3)
         cs.mode = 'COL-REFLECT'
         if tsRight.value() and tsLeft.value():
             drive(100, 100)
@@ -62,6 +63,7 @@ def mainProgram(direction)
             search(direction)
     stop()
 
+print("Push left to go anti, right to go clockwise")
 while True:
     if btn.left:
         mainProgram(1)
