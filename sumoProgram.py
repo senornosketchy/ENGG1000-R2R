@@ -9,7 +9,9 @@ from ev3dev.ev3 import *
 
 # Connect Motors
 rightMotor = LargeMotor(OUTPUT_C)
+assert rightMotor.connected
 leftMotor = LargeMotor(OUTPUT_B)
+assert leftMotor.connected
 print("Motors connected")
 
 # Connect sensors
@@ -50,9 +52,8 @@ def mainprogram(direction):
     while True:  # while no button is pressing pressed do the following
         sleep(3)
         cs.mode = 'COL-REFLECT'
+        search(direction)
         if tsRight.value() and tsLeft.value():
-            drive(100, 100)
-        elif us.value() < 40:
             drive(100, 100)
         elif tsLeft.value() and not tsRight.value():
             drive(100, 80)
@@ -79,3 +80,6 @@ while True:
         mainprogram(1)
     elif btn.right:
         mainprogram(-1)
+    elif btn.backspace:
+        break
+stop()
