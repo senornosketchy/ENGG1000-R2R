@@ -12,7 +12,7 @@ rightMotor = LargeMotor(OUTPUT_C)
 assert rightMotor.connected
 leftMotor = LargeMotor(OUTPUT_B)
 assert leftMotor.connected
-print("Motors connected")
+Sound.speak("Motors connected")
 sleep(0.2)
 
 # Connect sensors
@@ -20,14 +20,14 @@ tsLeft = TouchSensor(INPUT_2)
 assert tsLeft.connected
 tsRight = TouchSensor(INPUT_3)
 assert tsRight.connected
-print("Touch sensors connected")
+Sound.speak("Touch sensors connected")
 sleep(0.2)
 us = UltrasonicSensor()
 assert us.connected
-print("Ultrasonic Connected")
+Sound.speak("Ultrasonic Connected")
 cs = ColorSensor(INPUT_4)
 assert cs.connected
-print("Colour sensor connected")
+Sound.speak("Colour sensor connected")
 # Checking EV3 buttons state
 btn = Button()
 
@@ -51,39 +51,37 @@ def stop():
 
 
 def mainprogram(direction):
-    while True:  # while no button is pressing pressed do the following
+    while not btn.any():  # Until a button is pressed, run the mainProgram
         cs.mode = 'COL-REFLECT'
         search(direction)
-        if us.value() < 500:
-            drive(100, 100)
-        elif tsRight.value() and tsLeft.value():
-            drive(100, 100)
-        elif tsLeft.value() and not tsRight.value():
+        if tsLeft.value() and not tsRight.value():  # If being hit from the left, adjust right to make full contact
             drive(100, 80)
             sleep(0.2)
-        elif tsRight.value() and not tsLeft.value():
+        elif tsRight.value() and not tsLeft.value():  # If being hit from the right, adjust left to make full contact
             drive(80, 100)
             sleep(0.2)
-        elif cs.value() < 30:
+        elif us.value() < 450:  # Charge at anything within 45cm
+            drive(100, 100)
+        elif cs.value() < 30:  # If the edge of the ring is detected, drive forward to stay away from the edge
             drive(100, 100)
             sleep(0.1)
-        elif btn.backspace:
-            break
         else:
             search(direction)
     stop()
 
 
 sleep(0.5)
-print("sumoProgram loaded, waiting for command")
+print("sumoProgram loaded, waiting for command:")
 sleep(0.5)
 print("Left for anticlockwise, Right for clockwise")
 while True:
     if btn.left:
         sleep(3)
+        Sound.speak('You will now be destroyed')
         mainprogram(1)
     elif btn.right:
         sleep(3)
+        Sound.speak('You will now be destroyed')
         mainprogram(-1)
     elif btn.backspace:
         break
