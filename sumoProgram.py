@@ -55,28 +55,22 @@ def mainprogram(direction):
         sleep(3)
         cs.mode = 'COL-REFLECT'
         search(direction)
-        if tsRight.value() and tsLeft.value():
+        if us.value() < 500:
             drive(100, 100)
-            print("Both touch sensors active")
+        elif tsRight.value() and tsLeft.value():
+            drive(100, 100)
         elif tsLeft.value() and not tsRight.value():
-            print("Left sensor active")
             drive(100, 80)
             sleep(0.2)
         elif tsRight.value() and not tsLeft.value():
-            print("Right sensor active")
             drive(80, 100)
             sleep(0.2)
-        elif us.value() < 500:
-            print("Ultrasonic value < 500")
+        elif cs.value() < 30:
             drive(100, 100)
+            sleep(0.1)
         elif btn.backspace:
             break
-        elif cs.value() < 30:
-            print("Colour sensor found edge of ring")
-            drive(100, 100)
-            sleep(0.2)
         else:
-            print("Nothing found yet")
             search(direction)
     stop()
 
