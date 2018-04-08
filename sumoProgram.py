@@ -13,6 +13,7 @@ assert rightMotor.connected
 leftMotor = LargeMotor(OUTPUT_B)
 assert leftMotor.connected
 print("Motors connected")
+sleep(0.1)
 
 # Connect sensors
 tsLeft = TouchSensor(INPUT_2)
@@ -20,6 +21,7 @@ assert tsLeft.connected
 tsRight = TouchSensor(INPUT_3)
 assert tsRight.connected
 print("Touch sensors connected")
+sleep(0.1)
 us = UltrasonicSensor()
 assert us.connected
 print("Ultrasonic Connected")
@@ -79,6 +81,7 @@ def mainprogram(direction):
     stop()
 
 
+sleep(0.2)
 print("sumoProgram loaded, waiting for command")
 print("Left for anticlockwise, Right for clockwise")
 while True:
