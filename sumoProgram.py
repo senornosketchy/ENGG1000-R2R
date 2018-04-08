@@ -83,6 +83,7 @@ def mainprogram(direction):
 
 sleep(0.5)
 print("sumoProgram loaded, waiting for command")
+sleep(0.2)
 print("Left for anticlockwise, Right for clockwise")
 while True:
     if btn.left:
