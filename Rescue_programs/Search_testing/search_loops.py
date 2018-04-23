@@ -4,12 +4,15 @@ class Node:
         self.id = id
         self.neighbours = neighbours
         self.visited = False
+class Path:
+    def __init__(self, neighbours):
+        self.neighbours = neighbours
 
 
 def dfs_recursive(node):
     print('Node ', node.id)
     node.visited = True
-    for next in node.neighbours:
+    for next in node.neighbours:8
         dfs_recursive(next)
 
 

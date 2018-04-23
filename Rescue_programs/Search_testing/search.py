@@ -6,8 +6,6 @@ class Node:
 		
 def dfs_recursive(node):
 	print 'Node ', node.id
-	if node.neighbours == []:
-		return
 	for next in node.neighbours:
 		dfs_recursive(next)
 
