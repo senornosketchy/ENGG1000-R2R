@@ -51,18 +51,18 @@ def stop():
 
 
 def mainprogram(direction):
-    while not btn.any():  # Until a button is pressed, run the mainProgram
+    while not btn.any():
         cs.mode = 'COL-REFLECT'
         search(direction)
-        if tsLeft.value() and not tsRight.value():  # If being hit from the left, adjust right to make full contact
+        if tsLeft.value() and not tsRight.value():
             drive(100, 80)
             sleep(0.2)
-        elif tsRight.value() and not tsLeft.value():  # If being hit from the right, adjust left to make full contact
+        elif tsRight.value() and not tsLeft.value():
             drive(80, 100)
             sleep(0.2)
-        elif us.value() < 450:  # Charge at anything within 45cm
+        elif us.value() < 450:
             drive(100, 100)
-        elif cs.value() < 30:  # If the edge of the ring is detected, drive forward to stay away from the edge
+        elif cs.value() < 30:
             drive(100, 100)
             sleep(0.1)
         else:
