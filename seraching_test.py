@@ -7,6 +7,13 @@ from time import sleep
 import sys, os
 from ev3dev.ev3 import *
 
+class Node:
+
+    def __init__(self, id, neighbours):
+        self.id = id
+        self.neighbours = neighbours
+        self.visited = False
+
 # Connect Motors
 rightMotor = LargeMotor(OUTPUT_C)
 assert rightMotor.connected
@@ -69,7 +76,16 @@ def mainprogram(direction):
             search(direction)
     stop()
 
-def search:
+def dfs_open_list(start):
+    open_list = [start]
+    while open_list != []:
+        first, rest = open_list[0], open_list[1:]
+        if first.visited == True:
+            open_list = rest
+        else:
+            print('Node ', first.id)
+            first.visited = True
+            open_list = first.neighbours + rest
 
 
 sleep(0.5)
