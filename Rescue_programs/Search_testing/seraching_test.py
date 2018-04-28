@@ -7,12 +7,17 @@ from time import sleep
 import sys, os
 from ev3dev.ev3 import *
 
+
 class Node:
 
     def __init__(self, id, neighbours):
         self.id = id
         self.neighbours = neighbours
         self.visited = False
+
+class Thread:
+
+    def __init__(self):
 
 # Connect Motors
 rightMotor = LargeMotor(OUTPUT_C)
