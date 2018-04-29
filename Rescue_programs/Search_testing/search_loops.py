@@ -34,7 +34,7 @@ def bfs_open_list(start):
     open_list = [start]
     while open_list != []:
         first, rest = open_list[0], open_list[1:]
-        if first.visited == True:
+        if first.visited:
             open_list = rest
         else:
             print('Node ', first.id)
