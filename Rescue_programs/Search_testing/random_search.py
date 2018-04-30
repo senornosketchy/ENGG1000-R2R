@@ -86,11 +86,13 @@ def ultrasonic_movement():
     """
 
     # TODO: STEAL THE FUNCTION FROM LYALL
-    forward = True
+    left = True
+    centre = False
     right = False
-    left = False
 
-    return forward, right, left
+    LCM = [left, centre, right]
+
+    return LCM
 
 
 def main_program(past_moves, steps):
@@ -136,6 +138,10 @@ def decision_program(steps):
 
 def backup_program():
     #TODO: WRITE THE PROGRAM
+    """
+
+    :return:
+    """
 
 
 def confirm():
@@ -143,7 +149,7 @@ def confirm():
     AIM: To confirm that there is not a wall in the direction we are moving before recursively calling main_program
     :return: NO RETURN
     """
-    
+
 
 
 past_moves = []  # Holds the information on how to get back to the beginning or back up to the last junction
