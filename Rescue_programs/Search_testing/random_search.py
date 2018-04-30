@@ -19,15 +19,19 @@ rightMotor = LargeMotor(OUTPUT_C)
 assert rightMotor.connected
 leftMotor = LargeMotor(OUTPUT_B)
 assert leftMotor.connected
-Sound.speak("Motors connected")
-sleep(0.2)
 
+print("Motors Connected")
+print()
+print()
+
+
+#TODO: Correct the sensors to what we are using
 # Connect sensors
 tsLeft = TouchSensor(INPUT_2)
 assert tsLeft.connected
 tsRight = TouchSensor(INPUT_3)
 assert tsRight.connected
-Sound.speak("Touch sensors connected")
+print("Touch sensors connected")
 sleep(0.2)
 us = UltrasonicSensor()
 assert us.connected
@@ -39,16 +43,26 @@ Sound.speak("Colour sensor connected")
 btn = Button()
 
 
-def drive(left, right):
+def forward():
     # Move left and right motors at the given speeds. Speeds depend
     # on the values of touch sensor, and ultrasonic.
-    leftMotor.run_direct(duty_cycle_sp=left)
-    rightMotor.run_direct(duty_cycle_sp=right)
+    #TODO: Adjust values to go forward one "block"
+    leftMotor.run_timed(time_sp = 1000, speed_sp = 500)
+    rightMotor.run_timed(time_sp = 1000, speed_sp = 500)
 
 
-def search(spinDirection):
-    # Spin to detect other robot.
-    drive(spinDirection * -100, spinDirection * 100)
+def turn(direction):
+    """
+    AIM: TO TURN THE ROBOT 90 DEGREES CLOCKWISE OR COUNTERCLOCKWISE 90 DEGREES
+
+    :param direction: Either a 1 for right turns or -1 for left turns
+
+    :return: NO RETURN
+    """
+
+    #TODO: Experiment to find the right speed and time values to turn 90 degrees
+    leftMotor.run_timed(time_sp=1000, speed_sp=direction*500)
+    rightMotor.run_timed(time_sp=1000, speed_sp=direction*(-500))
 
 
 def stop():
@@ -57,34 +71,81 @@ def stop():
     rightMotor.stop(stop_action='brake')
 
 
-def mainprogram(direction):
+def ultrasonic_movement():
+    """
+    Code will come from Lyall
+    The aim of this function is to use the actuator/small motor to turn the ultrasonic at 90 degree intervals to detect
+    whether or not there is a wall. Three boolean values for forward, left and right will be returned in a three-tuple
+    to be used to determine which direction to go.
+
+    forward: [Boolean]
+    left: [Boolean]
+    right: [Boolean
+
+    :return: (forward, left, right)
+    """
+
+    # TODO: STEAL THE FUNCTION FROM LYALL
+    forward = True
+    right = False
+    left = False
+
+    return forward, right, left
 
 
-def dfs_open_list(start):
-    open_list = [start]
-    while open_list != []:
-        first, rest = open_list[0], open_list[1:]
-        if first.visited == True:
-            open_list = rest
+def main_program(past_moves, steps):
+    while not btn.any():  # This should eventually be replaced with a colour sensor reading
+        if node_info[steps[0]] or node_info[steps[1]] or node_info[steps[2]]:
+            decision_program(steps)
         else:
-            print('Node ', first.id)
-            first.visited = True
-            open_list = first.neighbours + rest
+            backup_program(steps)
 
 
-sleep(0.5)
-print("sumoProgram loaded, waiting for command:")
-sleep(0.5)
-print("Left for anticlockwise, Right for clockwise")
-while True:
-    if btn.left:
-        sleep(3)
-        Sound.speak('You will now be destroyed')
-        mainprogram(1)
-    elif btn.right:
-        sleep(3)
-        Sound.speak('You will now be destroyed')
-        mainprogram(-1)
-    elif btn.backspace:
-        break
-stop()
+def decision_program(steps):
+    """
+
+    :param steps: How many steps forward we have taken or the current reference index to past_moves
+
+    :var past_moves: Each value appended to the list refers to a (movement)/(type of movement), as described below:
+             0 = Forward movement
+             1 = Right turn
+             2 = Left turn
+             NB: Does not require a reverse unit, as every time it reverses it will delete the preceding block
+
+    :return: NO RETURN
+    """
+
+    if node_info[steps[0]]:
+        forward()
+        past_moves.append(0)
+        steps += 1
+        main_program(past_moves, steps)
+    else:
+        if node_info[steps[1]]:
+            turn(1)
+            past_moves.append(1)
+            steps += 1
+            confirm()
+        elif node_info[steps[2]]:
+            turn(-1)
+            past_moves.append(2)
+            steps += 1
+            confirm()
+        else:
+            backup_program()
+
+def backup_program():
+    #TODO: WRITE THE PROGRAM
+
+
+def confirm():
+    """
+    AIM: To confirm that there is not a wall in the direction we are moving before recursively calling main_program
+    :return: NO RETURN
+    """
+    
+
+
+past_moves = []  # Holds the information on how to get back to the beginning or back up to the last junction
+node_info = [(True, False, False)]  # Holds the boolean values of the walls in each node, as we come across them
+steps = 0  # This is our current step count
