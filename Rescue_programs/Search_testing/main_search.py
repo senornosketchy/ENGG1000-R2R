@@ -1,20 +1,22 @@
 #!/usr/bin/python3
+"""
+Tanvee Islam, 29th April, 2018
 
-# Anshul Arora, Tanvee Islam, 6th April, 2018.
+SEARCHING PROGRAM
 
+    Aim: The aim of this program is to successfully navigate a maze until a payload hidden inside the maze is identified
 
+"""
+
+# Importing necessary libraries
 from time import sleep
 import sys, os
 from ev3dev.ev3 import *
 
-class Node:
 
-    def __init__(self, id, neighbours):
-        self.id = id
-        self.neighbours = neighbours
-        self.visited = False
+# CONNECTING SENSORS AND MOTORS
 
-# Connect Motors
+# Connecting Motors
 rightMotor = LargeMotor(OUTPUT_C)
 assert rightMotor.connected
 leftMotor = LargeMotor(OUTPUT_B)
@@ -25,30 +27,47 @@ print()
 print()
 
 
-#TODO: Correct the sensors to what we are using
+# TODO: Correct the sensors to what we are using
 # Connect sensors
 tsLeft = TouchSensor(INPUT_2)
 assert tsLeft.connected
 tsRight = TouchSensor(INPUT_3)
 assert tsRight.connected
 print("Touch sensors connected")
+print()
 sleep(0.2)
 us = UltrasonicSensor()
 assert us.connected
-Sound.speak("Ultrasonic Connected")
-gs = GyroSensor(INPUT_4)
-assert gs.connected
-Sound.speak("Colour sensor connected")
+print("Ultrasonic Connected")
+print()
+cs = ColourSensor(INPUT_4)
+assert cs.connected
+print("Colour sensor connected")
+print()
+
 # Checking EV3 buttons state
 btn = Button()
 
 
 def forward():
+    """
+    Write the damn docstring
+    :return:
+    """
     # Move left and right motors at the given speeds. Speeds depend
     # on the values of touch sensor, and ultrasonic.
-    #TODO: Adjust values to go forward one "block"
-    leftMotor.run_timed(time_sp = 1000, speed_sp = 500)
-    rightMotor.run_timed(time_sp = 1000, speed_sp = 500)
+    # TODO: Adjust values to go forward one "block"
+    leftMotor.run_timed(time_sp=1000, speed_sp=500)
+    rightMotor.run_timed(time_sp=1000, speed_sp=500)
+
+
+def reverse():
+    """
+    Write the damn docstring
+    :return:
+    """
+    leftMotor.run_timed(time_sp=1000, speed_sp=-500)
+    rightMotor.run_timed(time_sp=1000, speed_sp=-500)
 
 
 def turn(direction):
@@ -60,12 +79,16 @@ def turn(direction):
     :return: NO RETURN
     """
 
-    #TODO: Experiment to find the right speed and time values to turn 90 degrees
+    # TODO: Experiment to find the right speed and time values to turn 90 degrees
     leftMotor.run_timed(time_sp=1000, speed_sp=direction*500)
     rightMotor.run_timed(time_sp=1000, speed_sp=direction*(-500))
 
 
 def stop():
+    """
+    Prolly don't even need this tbh
+    :return:
+    """
     # Brake the motors of the robot.
     leftMotor.stop(stop_action='brake')
     rightMotor.stop(stop_action='brake')
@@ -96,11 +119,17 @@ def ultrasonic_movement():
 
 
 def main_program(past_moves, steps):
+    """
+    WRITE THE DAMN DOCSTRING
+    :param past_moves:
+    :param steps:
+    :return:
+    """
     while not btn.any():  # This should eventually be replaced with a colour sensor reading
         if node_info[steps[0]] or node_info[steps[1]] or node_info[steps[2]]:
             decision_program(steps)
         else:
-            backup_program(steps)
+            backup_program(steps, node_info)
 
 
 def decision_program(steps):
@@ -127,22 +156,43 @@ def decision_program(steps):
             turn(1)
             past_moves.append(1)
             steps += 1
-            confirm()
+            forward()
+            past_moves.append(0)
+            steps += 1
+            main_program(past_moves, steps)
         elif node_info[steps[2]]:
             turn(-1)
             past_moves.append(2)
             steps += 1
-            confirm()
-        else:
-            backup_program()
+            # confirm() ADD A CONFIRMATION THING MAYBE?
+            forward()
+            past_moves.append(0)
+            steps += 1
+            main_program(past_moves, steps)
 
-def backup_program():
-    #TODO: WRITE THE PROGRAM
+
+def backup_program(steps):
+    #TODO: WRITE THE PROGRAM and docstring
     """
 
     :return:
     """
-
+    while node_info[steps[0]] == False and node_info[steps[1]] == False and node_info[steps[2]] == False:
+        if past_moves[steps] == 0:
+            reverse()
+            past_moves = past_moves[: -1]
+            steps -= 1
+            node_info[steps[0]] = False
+        elif past_moves[steps] == 1:
+            turn(-1)
+            past_moves = past_moves[: -1]
+            steps -= 1
+            node_info[steps[1]] = False
+        elif past_moves[steps] == 2:
+            turn(1)
+            past_moves = past_moves[:-1]
+            steps -= 1
+            node_info[steps[2]] = False
 
 def confirm():
     """
@@ -151,7 +201,6 @@ def confirm():
     """
 
 
-
 past_moves = []  # Holds the information on how to get back to the beginning or back up to the last junction
-node_info = [(True, False, False)]  # Holds the boolean values of the walls in each node, as we come across them
+node_info = [[True, False, False]]  # Holds the boolean values of the walls in each node, as we come across them
 steps = 0  # This is our current step count
