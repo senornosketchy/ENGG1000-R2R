@@ -21,6 +21,8 @@ rightMotor = LargeMotor(OUTPUT_C)
 assert rightMotor.connected
 leftMotor = LargeMotor(OUTPUT_B)
 assert leftMotor.connected
+servo = ServoMotor()
+assert ServoMotor.connected
 
 print("Motors Connected")
 print()
@@ -29,12 +31,6 @@ print()
 
 # TODO: Correct the sensors to what we are using
 # Connect sensors
-tsLeft = TouchSensor(INPUT_2)
-assert tsLeft.connected
-tsRight = TouchSensor(INPUT_3)
-assert tsRight.connected
-print("Touch sensors connected")
-print()
 sleep(0.2)
 us = UltrasonicSensor()
 assert us.connected
@@ -44,7 +40,10 @@ cs = ColourSensor(INPUT_4)
 assert cs.connected
 print("Colour sensor connected")
 print()
-
+gs = GyroSensor()
+assert gs.connected
+print("Colour sensor connected")
+print()
 # Checking EV3 buttons state
 btn = Button()
 
@@ -142,10 +141,10 @@ def main_program(past_moves, steps):
     """
     while not btn.any():  # This should eventually be replaced with a colour sensor reading
         scan_walls()
-        if node_info[steps[0]] or node_info[steps[1]] or node_info[steps[2]]:
+        if node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
             decision_program(steps)
         else:
-            backup_program()
+            backup_program(past_moves, steps)
 
 
 def decision_program(steps):
@@ -162,13 +161,13 @@ def decision_program(steps):
     :return: NO RETURN
     """
 
-    if node_info[steps[0]]:
+    if node_info[steps][0]:
         forward()
         past_moves.append(0)
         steps += 1
         main_program(past_moves, steps)
     else:
-        if node_info[steps[1]]:
+        if node_info[steps][1]:
             turn(1)
             past_moves.append(1)
             steps += 1
@@ -177,7 +176,7 @@ def decision_program(steps):
             node_info.append(0)
             steps += 1
             main_program(past_moves, steps)
-        elif node_info[steps[2]]:
+        elif node_info[steps][2]:
             turn(-1)
             past_moves.append(2)
             node_info.append(0)
@@ -189,16 +188,14 @@ def decision_program(steps):
             main_program(past_moves, steps)
 
 
-def backup_program():
-    #TODO: WRITE THE PROGRAM and docstring
+def backup_program(past_moves, steps):
+    # TODO: WRITE THE PROGRAM and docstring
     """
 
     :return:
     """
-    global past_moves
-    global steps
     last_entry = -1
-    while node_info[steps[0]] == False and node_info[steps[1]] == False and node_info[steps[2]] == False:
+    while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
         if past_moves[steps] == 0:
             reverse()
             past_moves = past_moves[: -1]
@@ -208,12 +205,13 @@ def backup_program():
             turn(-1)
             past_moves = past_moves[: -1]
             steps -= 1
-            node_info[steps[1]] = False
+            node_info[steps][1] = False
         elif past_moves[steps] == 2:
             turn(1)
             past_moves = past_moves[:-1]
             steps -= 1
-            node_info[last_entry[2]] = False
+            node_info[last_entry][2] = False
+
 
 def confirm():
     """
