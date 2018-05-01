@@ -56,9 +56,8 @@ def forward():
     """
     # Move left and right motors at the given speeds. Speeds depend
     # on the values of touch sensor, and ultrasonic.
-    # TODO: Adjust values to go forward one "block"
-    leftMotor.run_timed(time_sp=1000, speed_sp=500)
-    rightMotor.run_timed(time_sp=1000, speed_sp=500)
+    rightMotor.run_timed(time_sp=3000, speed_sp=100)
+    leftMotor.run_timed(time_sp=3000, speed_sp=100)
 
 
 def reverse():
@@ -94,28 +93,44 @@ def stop():
     rightMotor.stop(stop_action='brake')
 
 
-def ultrasonic_movement():
-    """
-    Code will come from Lyall
-    The aim of this function is to use the actuator/small motor to turn the ultrasonic at 90 degree intervals to detect
-    whether or not there is a wall. Three boolean values for forward, left and right will be returned in a three-tuple
-    to be used to determine which direction to go.
+def ultrasonic_movement(destination):
+    servo.run_to_abs_pos(position_sp=destination, speed_sp=75, ramp_down_sp=90)
 
-    forward: [Boolean]
-    left: [Boolean]
-    right: [Boolean
 
-    :return: (forward, left, right)
-    """
+def scan_walls():
+    global node_info
 
-    # TODO: STEAL THE FUNCTION FROM LYALL
-    left = True
-    centre = False
-    right = False
+    # Declaring constants
+    DETECTION_DISTANCE = 60
+    FRONT = 0
+    RIGHT = 90
+    LEFT = -90
 
-    LCM = [left, centre, right]
+    # forward
+    ultrasonic_movement(FRONT)
+    sleep(5)
+    if us.value <= DETECTION_DISTANCE:
+        forward = False
+    else:
+        forward = True
 
-    return LCM
+    # left
+    ultrasonic_movement(LEFT)
+    sleep(5)
+    if us.value <= DETECTION_DISTANCE:
+        left = False
+    else:
+        left = True
+
+    # right
+    ultrasonic_movement(RIGHT)
+    sleep(5)
+    if us.value <= DETECTION_DISTANCE:
+        right = False
+    else:
+        right = True
+
+    node_info.append((forward, right, left))
 
 
 def main_program(past_moves, steps):
@@ -126,10 +141,11 @@ def main_program(past_moves, steps):
     :return:
     """
     while not btn.any():  # This should eventually be replaced with a colour sensor reading
+        scan_walls()
         if node_info[steps[0]] or node_info[steps[1]] or node_info[steps[2]]:
             decision_program(steps)
         else:
-            backup_program(steps, node_info)
+            backup_program()
 
 
 def decision_program(steps):
@@ -158,31 +174,36 @@ def decision_program(steps):
             steps += 1
             forward()
             past_moves.append(0)
+            node_info.append(0)
             steps += 1
             main_program(past_moves, steps)
         elif node_info[steps[2]]:
             turn(-1)
             past_moves.append(2)
+            node_info.append(0)
             steps += 1
-            # confirm() ADD A CONFIRMATION THING MAYBE?
+            # confirm() ADD A CONFIRMATION THING MAYBE?, prolly not aye
             forward()
             past_moves.append(0)
             steps += 1
             main_program(past_moves, steps)
 
 
-def backup_program(steps):
+def backup_program():
     #TODO: WRITE THE PROGRAM and docstring
     """
 
     :return:
     """
+    global past_moves
+    global steps
+    last_entry = -1
     while node_info[steps[0]] == False and node_info[steps[1]] == False and node_info[steps[2]] == False:
         if past_moves[steps] == 0:
             reverse()
             past_moves = past_moves[: -1]
             steps -= 1
-            node_info[steps[0]] = False
+
         elif past_moves[steps] == 1:
             turn(-1)
             past_moves = past_moves[: -1]
@@ -192,7 +213,7 @@ def backup_program(steps):
             turn(1)
             past_moves = past_moves[:-1]
             steps -= 1
-            node_info[steps[2]] = False
+            node_info[last_entry[2]] = False
 
 def confirm():
     """
