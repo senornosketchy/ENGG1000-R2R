@@ -188,8 +188,9 @@ def decision_program(steps):
             main_program(past_moves, steps)
 
 
-def backup_program(past_moves, steps):
-    # TODO: WRITE THE PROGRAM and docstring
+def backup_program(past_moves, steps)
+
+    # TODO: WRITE THE docstring
     """
 
     :return:
@@ -213,13 +214,8 @@ def backup_program(past_moves, steps):
             node_info[last_entry][2] = False
 
 
-def confirm():
-    """
-    AIM: To confirm that there is not a wall in the direction we are moving before recursively calling main_program
-    :return: NO RETURN
-    """
-
-
 past_moves = []  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = [[True, False, False]]  # Holds the boolean values of the walls in each node, as we come across them
 steps = 0  # This is our current step count
+
+main_program(past_moves, steps)
