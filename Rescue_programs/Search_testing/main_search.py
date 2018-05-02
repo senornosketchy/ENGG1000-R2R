@@ -28,8 +28,6 @@ print("Motors Connected")
 print()
 print()
 
-
-# TODO: Correct the sensors to what we are using
 # Connect sensors
 sleep(0.2)
 us = UltrasonicSensor()
@@ -82,6 +80,7 @@ def stop_motors():
     leftMotor.stop()
     # rightMotor.reset()
     rightMotor.stop()
+
 
 def reverse():
     """
@@ -176,7 +175,7 @@ def decision_program(steps):
 
     :param steps: How many steps forward we have taken or the current reference index to past_moves
 
-    :var past_moves: Each value appended to the list refers to a (movement)/(type of movement), as described below:
+    :var : Each value appended to the list refers to a (movement)/(type of movement), as described below:
              0 = Forward movement
              1 = Right turn
              2 = Left turn
@@ -213,8 +212,6 @@ def decision_program(steps):
 
 
 def backup_program(past_moves, steps):
-
-    # TODO: WRITE THE docstring
     """
 
     :return:
