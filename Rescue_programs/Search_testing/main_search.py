@@ -17,12 +17,12 @@ from ev3dev.ev3 import *
 # CONNECTING SENSORS AND MOTORS
 
 # Connecting Motors
-rightMotor = LargeMotor(OUTPUT_C)
+rightMotor = LargeMotor(OUTPUT_A)
 assert rightMotor.connected
-leftMotor = LargeMotor(OUTPUT_B)
+leftMotor = LargeMotor(OUTPUT_D)
 assert leftMotor.connected
-servo = ServoMotor()
-assert ServoMotor.connected
+servo = Motor(OUTPUT_C)
+assert servo.connected
 
 print("Motors Connected")
 print()
@@ -36,7 +36,7 @@ us = UltrasonicSensor()
 assert us.connected
 print("Ultrasonic Connected")
 print()
-cs = ColourSensor(INPUT_4)
+cs = ColourSensor(INPUT_3)
 assert cs.connected
 print("Colour sensor connected")
 print()
@@ -47,17 +47,41 @@ print()
 # Checking EV3 buttons state
 btn = Button()
 
+# ---GLOBAL IMPORTANT SETTINGS--- #
+ultrasonic_wall_sensing_distance = 100
+scan_rotation_speed = 150
+wheel_rotations_per_block = 818
 
-def forward():
-    """
-    Write the damn docstring
-    :return:
-    """
-    # Move left and right motors at the given speeds. Speeds depend
-    # on the values of touch sensor, and ultrasonic.
-    rightMotor.run_timed(time_sp=3000, speed_sp=100)
-    leftMotor.run_timed(time_sp=3000, speed_sp=100)
 
+# ---MOVEMENT FUNCTIONS--- #
+#
+# this function moves the bot forward or backwards 1 block
+def move_1_block(forward):
+    spins = wheel_rotations_per_block
+    if forward:
+        spins = spins * -1
+
+    leftMotor.run_to_rel_pos(position_sp=spins, speed_sp=150, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp=spins, speed_sp=150, ramp_down_sp=90)
+
+    left_running_state = leftMotor.state
+    right_running_state = rightMotor.state
+    print("returning the state flags of the motor ", left_running_state, right_running_state)
+
+    # wait until motor stops before continuing with anything else
+    print("returning the state flags of the motor ", leftMotor.state, rightMotor.state)
+    while leftMotor.state == left_running_state and rightMotor.state == right_running_state:
+        if us.value() < ultrasonic_wall_sensing_distance:
+            stop_motors()
+            print("Wall was sensed early so motor stopped")
+
+
+# this function stops both motors
+def stop_motors():
+    # leftMotor.reset()
+    leftMotor.stop()
+    # rightMotor.reset()
+    rightMotor.stop()
 
 def reverse():
     """
@@ -162,7 +186,7 @@ def decision_program(steps):
     """
 
     if node_info[steps][0]:
-        forward()
+        move_1_block(True)
         past_moves.append(0)
         steps += 1
         main_program(past_moves, steps)
@@ -171,7 +195,7 @@ def decision_program(steps):
             turn(1)
             past_moves.append(1)
             steps += 1
-            forward()
+            move_1_block(True)
             past_moves.append(0)
             node_info.append(0)
             steps += 1
@@ -182,13 +206,13 @@ def decision_program(steps):
             node_info.append(0)
             steps += 1
             # confirm() ADD A CONFIRMATION THING MAYBE?, prolly not aye
-            forward()
+            move_1_block(True)
             past_moves.append(0)
             steps += 1
             main_program(past_moves, steps)
 
 
-def backup_program(past_moves, steps)
+def backup_program(past_moves, steps):
 
     # TODO: WRITE THE docstring
     """
