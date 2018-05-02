@@ -201,7 +201,7 @@ def backup_program(past_moves, steps)
             reverse()
             past_moves = past_moves[: -1]
             steps -= 1
-
+            node_info[steps][1] = False
         elif past_moves[steps] == 1:
             turn(-1)
             past_moves = past_moves[: -1]
