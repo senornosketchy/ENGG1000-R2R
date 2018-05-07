@@ -13,7 +13,8 @@ def wayBack(direction,movementNumber):
         wayBack[movementNumber] = turn(left);
 
 
-def headingback():
+def headingback(movementNumber):
+    i = movementNumber;
     while c.read_value("position") != initialMotorLocation or i != 0:
         wayBack[i];
-        i = i + 1;
+        i = i - 1;
