@@ -26,6 +26,7 @@ def scan_walls():
     # forward
     ultrasonic_movement(FRONT)
     sleep(5)
+    print("The ultrasonic value is:", us.value())
     if us.value() <= DETECTION_DISTANCE:
         forward = False
         print("Not goin that way")
@@ -38,6 +39,7 @@ def scan_walls():
     # left
     ultrasonic_movement(LEFT)
     sleep(5)
+    print("The ultrasonic value is:", us.value())
     if us.value() <= DETECTION_DISTANCE:
         left = False
         print("Not goin left")
@@ -50,6 +52,7 @@ def scan_walls():
     print("Lookin the other side")
     ultrasonic_movement(RIGHT)
     sleep(5)
+    print("The ultrasonic value is:", us.value())
     if us.value() <= DETECTION_DISTANCE:
         right = False
         print("Right is blocked")
