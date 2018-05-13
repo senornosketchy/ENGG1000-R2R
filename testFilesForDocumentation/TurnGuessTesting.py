@@ -35,7 +35,7 @@ print()
 btn = Button()
 
 
-wheel_turn_rotations_per_turn = 360 * 0.89 * 2
+wheel_turn_rotations_per_turn = 360 * 0.89 * 1
 
 def stop_motors():
     # leftMotor.reset()
