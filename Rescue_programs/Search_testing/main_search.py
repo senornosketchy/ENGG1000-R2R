@@ -204,7 +204,6 @@ def decision_program(steps):
             past_moves.append(2)
             node_info.append(0)
             steps += 1
-            # confirm() ADD A CONFIRMATION THING MAYBE?, prolly not aye
             move_1_block(True)
             past_moves.append(0)
             steps += 1
@@ -230,13 +229,13 @@ def backup_program(past_moves, steps):
             node_info[steps][1] = False
         elif past_moves[steps] == 2:
             turn(1)
-            past_moves = past_moves[:-1]
+            past_moves = past_moves[: -1]
             steps -= 1
             node_info[last_entry][2] = False
 
 
 past_moves = []  # Holds the information on how to get back to the beginning or back up to the last junction
-node_info = [[True, False, False]]  # Holds the boolean values of the walls in each node, as we come across them
+node_info = [[True, False, False] ]  # Holds the boolean values of the walls in each node, as we come across them
 steps = 0  # This is our current step count
 
 main_program(past_moves, steps)

@@ -1,17 +1,19 @@
 from ev3.lego import Motor
+
 c = Motor(port = Motor.PORT.C)
+
 from arrays import *
 
 while btn.any():
     
     initialMotorLocation= c.read_value("position")
-    #while can not found    
+    # while can not found
         #code in choosing the direction
         if direction == forward:
             wayBack[movementNumber] = forward();
-        else if direction == left:
+        elif direction == left:
             wayBack[movementNumber] = turn(right);
-        else if direction == right:
+        elif direction == right:
             wayBack[movementNumber] = turn(left);
         #code in moving the bot    
 
