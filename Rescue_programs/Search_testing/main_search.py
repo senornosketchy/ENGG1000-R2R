@@ -49,6 +49,7 @@ btn = Button()
 
 # ---GLOBAL IMPORTANT SETTINGS--- #
 ultrasonic_wall_sensing_distance = 100
+front_wall_sensing_distance = 10
 scan_rotation_speed = 150
 wheel_rotations_per_block = 818
 
@@ -90,7 +91,7 @@ def move_1_block_2(forward):
     while i < 40:
         print("while loop count:", i)
 
-        if us_front.value() < ultrasonic_wall_sensing_distance:
+        if us_front.value() < front_wall_sensing_distance:
             stop_motors()
             print()
             print("wall was sensed early so motor stopped")
