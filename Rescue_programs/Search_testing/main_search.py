@@ -89,7 +89,7 @@ def move_1_block_2(forward):
     while i < 4:
         print(i)
         print("The desired direction:", desired_direction)
-        if us.value() < ultrasonic_wall_sensing_distance:
+        if us_front.value() < ultrasonic_wall_sensing_distance:
             stop_motors()
             print()
             print("wall was sensed early so motor stopped")
@@ -180,8 +180,10 @@ def scan_walls():
     sleep(5)
     if us.value() <= DETECTION_DISTANCE:
         left = False
+        print("Not goin left")
     else:
         left = True
+        print("Left is clear")
 
     # right
     print()
@@ -190,13 +192,16 @@ def scan_walls():
     sleep(5)
     if us.value() <= DETECTION_DISTANCE:
         right = False
+        print("Right is blocked")
     else:
         right = True
+        print("Right's clear")
 
     print()
     print("This is what we know")
     print((forward, left, right))
     node_info.append((forward, right, left))
+    sleep(5)
 
 
 def main_program(past_moves, steps):
