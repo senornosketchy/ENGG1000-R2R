@@ -53,8 +53,10 @@ def turn(target_angle, direction):
     while abs(init_angle - target_angle) > 0:
         print("The difference angle is now:", abs(init_angle - target_angle))
 
-        leftMotor.run_direct(duty_cycle_sp=direction * 40)
-        rightMotor.run_direct(duty_cycle_sp=direction * -40)
+        leftMotor.run_direct(duty_cycle_sp=direction * 30)
+        rightMotor.run_direct(duty_cycle_sp=direction * -30)
+        if init_angle - target_angle == 0:
+            break
         init_angle = gs.value() % 90
 
     # while gs.value() % 360 != init_angle + direction*(target_angle - 1) or gs.value() % 360 != init_angle + \
