@@ -2,10 +2,10 @@
 
 from ev3dev.ev3 import *
 
-rightMotor = LargeMotor(OUTPUT_C)
+rightMotor = LargeMotor(OUTPUT_A)
 assert rightMotor.connected
 
-leftMotor = LargeMotor(OUTPUT_B)
+leftMotor = LargeMotor(OUTPUT_D)
 assert leftMotor.connected
 
 
