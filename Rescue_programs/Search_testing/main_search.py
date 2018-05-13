@@ -83,8 +83,8 @@ def move_1_block_2(forward):
 
     left_running_state = leftMotor.state
     right_running_state = rightMotor.state
-
-    while leftMotor.state == left_running_state and rightMotor.state == right_running_state:
+    i = 0
+    while i < 10:
         if us.value() < ultrasonic_wall_sensing_distance:
             stop_motors()
             print()
@@ -92,12 +92,15 @@ def move_1_block_2(forward):
         elif gs.value < desired_direction - 3:
             leftMotor.run_direct(duty_cycle=30)
             rightMotor.run_direct(duty_cycle=75)
+            i += 0.1
         elif gs.value > desired_direction + 3:
             leftMotor.run_direct(duty_cycle=75)
             rightMotor.run_direct(duty_cycle=30)
+            i += 0.1
         else:
             leftMotor.run_direct(duty_cycle_sp=75)
             rightMotor.run_direct(duty_cycle_sp=75)
+            i += 0.1
 
 
 # this function stops both motors
@@ -154,30 +157,41 @@ def scan_walls():
     RIGHT = 90
     LEFT = -90
 
+    print()
+    print("Lookin forward")
     # forward
     ultrasonic_movement(FRONT)
     sleep(5)
-    if us.value <= DETECTION_DISTANCE:
+    if us.value() <= DETECTION_DISTANCE:
         forward = False
+        print("Not goin that way")
     else:
         forward = True
+        print("Forwards clear")
 
+    print()
+    print("Lookin to the side")
     # left
     ultrasonic_movement(LEFT)
     sleep(5)
-    if us.value <= DETECTION_DISTANCE:
+    if us.value() <= DETECTION_DISTANCE:
         left = False
     else:
         left = True
 
     # right
+    print()
+    print("Lookin the other side")
     ultrasonic_movement(RIGHT)
     sleep(5)
-    if us.value <= DETECTION_DISTANCE:
+    if us.value() <= DETECTION_DISTANCE:
         right = False
     else:
         right = True
 
+    print()
+    print("This is what we know")
+    print((forward, left, right))
     node_info.append((forward, right, left))
 
 
@@ -189,10 +203,16 @@ def main_program(past_moves, steps):
     :return:
     """
     while not btn.any():  # This should eventually be replaced with a colour sensor reading
+        print()
+        print("Bout to scan walls")
         scan_walls()
         if node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
+            print()
+            print("Looks like there's somewhere to go")
             decision_program(steps)
         else:
+            print()
+            print("Time to back the fuck up")
             backup_program(past_moves, steps)
 
 
@@ -211,11 +231,15 @@ def decision_program(steps):
     """
 
     if node_info[steps][0]:
+        print()
+        print("Let's go forward")
         move_1_block_2(True)
         past_moves.append(0)
         steps += 1
         main_program(past_moves, steps)
     else:
+        print()
+        print("Let's not go forward")
         if node_info[steps][1]:
             turn(1)
             past_moves.append(1)
