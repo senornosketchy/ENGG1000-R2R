@@ -49,7 +49,7 @@ btn = Button()
 
 # ---GLOBAL IMPORTANT SETTINGS--- #
 ultrasonic_wall_sensing_distance = 190
-front_wall_sensing_distance = 23
+front_wall_sensing_distance = 20
 scan_rotation_speed = 150
 wheel_rotations_per_block = 818
 
@@ -169,7 +169,7 @@ def scan_walls():
     # forward
     ultrasonic_movement(FRONT)
     sleep(5)
-    if us.value() <= DETECTION_DISTANCE:
+    if us_front.value() <= front_wall_sensing_distance:
         forward = False
         print("Not goin that way")
     else:
