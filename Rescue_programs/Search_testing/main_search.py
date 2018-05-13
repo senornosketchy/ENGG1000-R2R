@@ -32,7 +32,9 @@ print()
 sleep(0.5)
 us = UltrasonicSensor(INPUT_1)
 assert us.connected
-print("Ultrasonic Connected")
+us_front = UltrasonicSensor(INPUT_2)
+assert us_front.connected
+print("Ultrasonics Connected")
 print()
 cs = ColorSensor(INPUT_4)
 assert cs.connected
@@ -236,6 +238,7 @@ def decision_program(steps):
         print()
         print("Let's go forward")
         move_1_block_2(True)
+        stop_motors()
         past_moves.append(0)
         steps += 1
         main_program(past_moves, steps)
@@ -247,6 +250,7 @@ def decision_program(steps):
             past_moves.append(1)
             steps += 1
             move_1_block_2(True)
+            stop_motors()
             past_moves.append(0)
             node_info.append(0)
             steps += 1
@@ -257,6 +261,7 @@ def decision_program(steps):
             node_info.append(0)
             steps += 1
             move_1_block_2(True)
+            stop_motors()
             past_moves.append(0)
             steps += 1
             main_program(past_moves, steps)
@@ -271,6 +276,7 @@ def backup_program(past_moves, steps):
     while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
         if past_moves[steps] == 0:
             reverse()
+            stop_motors()
             past_moves = past_moves[: -1]
             steps -= 1
             node_info[steps][1] = False
