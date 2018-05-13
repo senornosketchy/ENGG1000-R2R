@@ -51,6 +51,7 @@ def turn(target_angle, direction):
 
     # TODO: Experiment to find the right speed and time values to turn 90 degrees
     while abs(init_angle - target_angle) < 90:
+        print("The angle is now:", init_angle)
         leftMotor.run_direct(duty_cycle_sp=direction * 60)
         rightMotor.run_direct(duty_cycle_sp=direction * -60)
         init_angle = gs.value() % 90
