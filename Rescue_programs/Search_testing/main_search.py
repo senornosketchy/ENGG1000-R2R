@@ -102,7 +102,7 @@ def move_1_block_2(forward):
             leftMotor.run_direct(duty_cycle_sp=75)
             rightMotor.run_direct(duty_cycle_sp=75)
             i += 0.1
-
+    stop_motors()
 
 # this function stops both motors
 def stop_motors():
