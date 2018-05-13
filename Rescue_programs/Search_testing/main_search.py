@@ -48,7 +48,7 @@ print()
 btn = Button()
 
 # ---GLOBAL IMPORTANT SETTINGS--- #
-ultrasonic_wall_sensing_distance = 100
+ultrasonic_wall_sensing_distance = 190
 front_wall_sensing_distance = 23
 scan_rotation_speed = 150
 wheel_rotations_per_block = 818
@@ -159,7 +159,7 @@ def scan_walls():
     global node_info
 
     # Declaring constants
-    DETECTION_DISTANCE = 100
+    DETECTION_DISTANCE = 190
     FRONT = 0
     RIGHT = 90
     LEFT = -90
