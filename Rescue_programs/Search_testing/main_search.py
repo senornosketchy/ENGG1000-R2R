@@ -160,6 +160,7 @@ def scan_walls():
 
     # Declaring constants
     DETECTION_DISTANCE = 190
+    FRONT_DETECTION_DISTANCE = 220
     FRONT = 0
     RIGHT = 90
     LEFT = -90
@@ -169,7 +170,7 @@ def scan_walls():
     # forward
     ultrasonic_movement(FRONT)
     sleep(5)
-    if us_front.value() <= front_wall_sensing_distance:
+    if us.value() <= FRONT_DETECTION_DISTANCE:
         forward = False
         print("Not goin that way")
     else:
@@ -241,7 +242,9 @@ def decision_program(steps):
 
     :return: NO RETURN
     """
-
+    print("This is node info:", node_info)
+    print("sleeping")
+    sleep(5)
     if node_info[steps][0]:
         print()
         print("Let's go forward")
