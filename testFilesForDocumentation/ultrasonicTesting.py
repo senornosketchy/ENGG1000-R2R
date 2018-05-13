@@ -7,6 +7,9 @@ us1 = UltrasonicSensor(INPUT_2)
 us = UltrasonicSensor(INPUT_1)
 assert us.connected
 
+servo = Motor(OUTPUT_C)
+assert servo.connected
+
 btn = Button()
 
 def ultrasonic_movement(destination):
