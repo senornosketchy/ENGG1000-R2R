@@ -53,7 +53,7 @@ def turn(target_angle, direction):
     while abs(init_angle - target_angle) < 90:
         leftMotor.run_direct(duty_cycle_sp=direction * 60)
         rightMotor.run_direct(duty_cycle_sp=direction * -60)
-        init_angle = gs.value % 90
+        init_angle = gs.value() % 90
 
     # while gs.value() % 360 != init_angle + direction*(target_angle - 1) or gs.value() % 360 != init_angle + \
     #         direction*target_angle or gs.value() % 360 != init_angle + direction*(target_angle + 1):
@@ -62,4 +62,12 @@ def turn(target_angle, direction):
     #     rightMotor.run_direct(duty_cycle_sp=direction*-60)
 
 
+def stop_motors():
+    # leftMotor.reset()
+    leftMotor.stop()
+    # rightMotor.reset()
+    rightMotor.stop()
+
+
 turn(90, 1)
+stop_motors()
