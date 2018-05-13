@@ -141,16 +141,6 @@ def turn(direction):
     rightMotor.run_timed(time_sp=1000, speed_sp=direction*(-500))
 
 
-def stop():
-    """
-    Prolly don't even need this tbh
-    :return:
-    """
-    # Brake the motors of the robot.
-    leftMotor.stop(stop_action='brake')
-    rightMotor.stop(stop_action='brake')
-
-
 def ultrasonic_movement(destination):
     servo.run_to_abs_pos(position_sp=destination, speed_sp=75, ramp_down_sp=90)
 
@@ -257,6 +247,7 @@ def decision_program(steps):
         print()
         print("Let's not go forward")
         if node_info[steps][1]:
+            print("We're goin right?")
             turn(1)
             past_moves.append(1)
             steps += 1
@@ -267,6 +258,7 @@ def decision_program(steps):
             steps += 1
             main_program(past_moves, steps)
         elif node_info[steps][2]:
+            print("we're goin left?")
             turn(-1)
             past_moves.append(2)
             node_info.append(0)
