@@ -49,7 +49,7 @@ btn = Button()
 
 # ---GLOBAL IMPORTANT SETTINGS--- #
 ultrasonic_wall_sensing_distance = 190
-front_wall_sensing_distance = 20
+front_wall_sensing_distance = 22
 scan_rotation_speed = 150
 wheel_rotations_per_block = 818
 
