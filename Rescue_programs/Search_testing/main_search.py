@@ -137,8 +137,8 @@ def turn(direction):
     """
 
     # TODO: Experiment to find the right speed and time values to turn 90 degrees
-    leftMotor.run_timed(time_sp=1000, speed_sp=direction*500)
-    rightMotor.run_timed(time_sp=1000, speed_sp=direction*(-500))
+    mod = gs.value()%360
+    while
 
 
 def ultrasonic_movement(destination):

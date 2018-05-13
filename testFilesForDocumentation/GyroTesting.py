@@ -12,4 +12,4 @@ btn = Button()
 
 while not btn.any():
     sleep(0.1)
-    print(gy.value())
+    print(gy.value() % 360)
