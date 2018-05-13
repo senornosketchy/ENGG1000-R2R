@@ -79,6 +79,7 @@ def move_1_block(forward):
 def move_1_block_2(forward):
     # TODO: Figure out how to do desired direction
     desired_direction = gs.value()
+    print("The desired direction:", desired_direction)
 
     leftMotor.run_direct(duty_cycle_sp=75)
     rightMotor.run_direct(duty_cycle_sp=75)
@@ -86,25 +87,26 @@ def move_1_block_2(forward):
     left_running_state = leftMotor.state
     right_running_state = rightMotor.state
     i = 0
-    while i < 4:
-        print(i)
-        print("The desired direction:", desired_direction)
+    while i < 40:
+        print("while loop count:", i)
+
         if us_front.value() < ultrasonic_wall_sensing_distance:
             stop_motors()
             print()
             print("wall was sensed early so motor stopped")
+            break
         elif gs.value() < desired_direction - 3:
             leftMotor.run_direct(duty_cycle=30)
             rightMotor.run_direct(duty_cycle=75)
-            i += 0.1
+            i += 1
         elif gs.value() > desired_direction + 3:
             leftMotor.run_direct(duty_cycle=75)
             rightMotor.run_direct(duty_cycle=30)
-            i += 0.1
+            i += 1
         else:
             leftMotor.run_direct(duty_cycle_sp=75)
             rightMotor.run_direct(duty_cycle_sp=75)
-            i += 0.1
+            i += 1
     stop_motors()
 
 # this function stops both motors
