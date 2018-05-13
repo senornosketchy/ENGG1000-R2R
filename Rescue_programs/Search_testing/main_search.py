@@ -84,8 +84,9 @@ def move_1_block_2(forward):
     left_running_state = leftMotor.state
     right_running_state = rightMotor.state
     i = 0
-    while i < 10:
+    while i < 4:
         print(i)
+        print("The desired direction:", desired_direction)
         if us.value() < ultrasonic_wall_sensing_distance:
             stop_motors()
             print()
