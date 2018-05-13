@@ -61,3 +61,5 @@ def turn(left):
 
 
 turn(False)
+sleep(5)
+turn(True)

@@ -51,7 +51,7 @@ btn = Button()
 ultrasonic_wall_sensing_distance = 190
 front_wall_sensing_distance = 21
 scan_rotation_speed = 150
-wheel_rotations_per_block = 818
+wheel_turn_rotations_per_turn = 360 * 0.89 * 1
 
 
 # ---MOVEMENT FUNCTIONS--- #
@@ -164,8 +164,8 @@ def turn_guess(left):
         direction = -1
 
     # MAJOR TURN
-    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
-    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
+    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=200, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=200, ramp_down_sp=90)
 
     # hold until the motor starts
     leftMotor.wait_while('running')
