@@ -47,7 +47,7 @@ def turn(target_angle, direction):
     init_angle = gs.value() % 90
     print("The inital angle:", init_angle)
 
-    print("The ", init_angle + direction*target_angle)
+    print("The initial difference is:", init_angle - target_angle)
 
     # TODO: Experiment to find the right speed and time values to turn 90 degrees
     while abs(init_angle - target_angle) < 90:
