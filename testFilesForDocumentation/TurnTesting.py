@@ -50,13 +50,12 @@ def turn(target_angle, direction):
     print("The initial difference is:", init_angle - target_angle)
 
     # TODO: Experiment to find the right speed and time values to turn 90 degrees
-    while abs(init_angle - target_angle) > 0:
+    while abs(init_angle - target_angle) > 5:
         print("The difference angle is now:", abs(init_angle - target_angle))
 
         leftMotor.run_direct(duty_cycle_sp=direction * 30)
         rightMotor.run_direct(duty_cycle_sp=direction * -30)
-        if init_angle - target_angle == 0:
-            break
+
         init_angle = gs.value() % 90
 
     # while gs.value() % 360 != init_angle + direction*(target_angle - 1) or gs.value() % 360 != init_angle + \
