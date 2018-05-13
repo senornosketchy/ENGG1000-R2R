@@ -35,7 +35,7 @@ print()
 btn = Button()
 
 
-wheel_turn_rotations_per_turn = 360 * 0.89 * 0.75
+wheel_turn_rotations_per_turn = 360 * 0.89 * 0.90
 
 def stop_motors():
     # leftMotor.reset()
@@ -51,8 +51,8 @@ def turn(left):
         direction = -1
 
     # MAJOR TURN
-    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
-    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
+    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=200, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=200, ramp_down_sp=90)
 
     # hold until the motor starts
     leftMotor.wait_while('running')
