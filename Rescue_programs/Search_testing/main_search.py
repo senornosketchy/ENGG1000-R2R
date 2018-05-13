@@ -127,7 +127,7 @@ def reverse():
     rightMotor.run_timed(time_sp=1000, speed_sp=-500)
 
 
-def turn(direction):
+def turn(target_angle, direction):
     """
     AIM: TO TURN THE ROBOT 90 DEGREES CLOCKWISE OR COUNTERCLOCKWISE 90 DEGREES
 
@@ -135,10 +135,12 @@ def turn(direction):
 
     :return: NO RETURN
     """
-
+    init_angle = gs.value() % 360
     # TODO: Experiment to find the right speed and time values to turn 90 degrees
-    mod = gs.value()%360
-    while
+    while gs.value() % 360 != init_angle + direction*(target_angle - 1) or gs.value() % 360 != init_angle + \
+            direction*target_angle or gs.value() % 360 != init_angle + direction*(target_angle + 1):
+        leftMotor.run_direct(duty_cycle_sp=direction*60)
+        rightMotor.run_direct(duty_cycle_sp=direction*-60)
 
 
 def ultrasonic_movement(destination):
@@ -248,7 +250,7 @@ def decision_program(steps):
         print("Let's not go forward")
         if node_info[steps][1]:
             print("We're goin right?")
-            turn(1)
+            turn(90, 1)
             past_moves.append(1)
             steps += 1
             move_1_block_2(True)
@@ -259,7 +261,7 @@ def decision_program(steps):
             main_program(past_moves, steps)
         elif node_info[steps][2]:
             print("we're goin left?")
-            turn(-1)
+            turn(-90, -1)
             past_moves.append(2)
             node_info.append(0)
             steps += 1
