@@ -24,23 +24,23 @@ assert leftMotor.connected
 servo = Motor(OUTPUT_C)
 assert servo.connected
 
-print("Motors Connected")
 print()
+print("Motors Connected")
 print()
 
 # Connect sensors
-sleep(0.2)
-us = UltrasonicSensor()
+sleep(0.5)
+us = UltrasonicSensor(INPUT_1)
 assert us.connected
 print("Ultrasonic Connected")
 print()
-cs = ColourSensor(INPUT_3)
+cs = ColorSensor(INPUT_4)
 assert cs.connected
 print("Colour sensor connected")
 print()
-gs = GyroSensor()
+gs = GyroSensor(INPUT_3)
 assert gs.connected
-print("Colour sensor connected")
+print("Gyro sensor connected")
 print()
 # Checking EV3 buttons state
 btn = Button()
@@ -72,6 +72,32 @@ def move_1_block(forward):
         if us.value() < ultrasonic_wall_sensing_distance:
             stop_motors()
             print("Wall was sensed early so motor stopped")
+
+
+def move_1_block_2(forward):
+    # TODO: Figure out how to do desired direction
+    desired_direction = gs.value()
+
+    leftMotor.run_direct(duty_cycle_sp=75)
+    rightMotor.run_direct(duty_cycle_sp=75)
+
+    left_running_state = leftMotor.state
+    right_running_state = rightMotor.state
+
+    while leftMotor.state == left_running_state and rightMotor.state == right_running_state:
+        if us.value() < ultrasonic_wall_sensing_distance:
+            stop_motors()
+            print()
+            print("wall was sensed early so motor stopped")
+        elif gs.value < desired_direction - 3:
+            leftMotor.run_direct(duty_cycle=30)
+            rightMotor.run_direct(duty_cycle=75)
+        elif gs.value > desired_direction + 3:
+            leftMotor.run_direct(duty_cycle=75)
+            rightMotor.run_direct(duty_cycle=30)
+        else:
+            leftMotor.run_direct(duty_cycle_sp=75)
+            rightMotor.run_direct(duty_cycle_sp=75)
 
 
 # this function stops both motors
@@ -185,7 +211,7 @@ def decision_program(steps):
     """
 
     if node_info[steps][0]:
-        move_1_block(True)
+        move_1_block_2(True)
         past_moves.append(0)
         steps += 1
         main_program(past_moves, steps)
@@ -194,7 +220,7 @@ def decision_program(steps):
             turn(1)
             past_moves.append(1)
             steps += 1
-            move_1_block(True)
+            move_1_block_2(True)
             past_moves.append(0)
             node_info.append(0)
             steps += 1
@@ -204,7 +230,7 @@ def decision_program(steps):
             past_moves.append(2)
             node_info.append(0)
             steps += 1
-            move_1_block(True)
+            move_1_block_2(True)
             past_moves.append(0)
             steps += 1
             main_program(past_moves, steps)
@@ -235,7 +261,7 @@ def backup_program(past_moves, steps):
 
 
 past_moves = []  # Holds the information on how to get back to the beginning or back up to the last junction
-node_info = [[True, False, False] ]  # Holds the boolean values of the walls in each node, as we come across them
+node_info = [[True, False, False]]  # Holds the boolean values of the walls in each node, as we come across them
 steps = 0  # This is our current step count
 
 main_program(past_moves, steps)
