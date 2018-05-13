@@ -157,6 +157,22 @@ def turn(target_angle, direction):
     print("The final angle is:", init_angle)
 
 
+def turn_guess(left):
+    # increments setting for the turn
+    direction = 1
+    if left:
+        direction = -1
+
+    # MAJOR TURN
+    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
+
+    # hold until the motor starts
+    leftMotor.wait_while('running')
+
+    stop_motors()
+
+
 def ultrasonic_movement(destination):
     servo.run_to_abs_pos(position_sp=destination, speed_sp=75, ramp_down_sp=90)
 
@@ -264,7 +280,8 @@ def decision_program(steps):
         print("Let's not go forward")
         if node_info[steps][1]:
             print("We're goin right?")
-            turn(90, 1)
+            # turn(90, 1)
+            turn_guess(False)
             past_moves.append(1)
             steps += 1
             move_1_block_2(True)
@@ -275,7 +292,8 @@ def decision_program(steps):
             main_program(past_moves, steps)
         elif node_info[steps][2]:
             print("we're goin left?")
-            turn(-90, -1)
+            # turn(-90, -1)
+            turn_guess(True)
             past_moves.append(2)
             node_info.append(0)
             steps += 1
