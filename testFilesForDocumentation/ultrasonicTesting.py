@@ -3,7 +3,8 @@
 from ev3dev.ev3 import *
 from time import sleep
 
-us = UltrasonicSensor(INPUT_2)
+us1 = UltrasonicSensor(INPUT_2)
+us = UltrasonicSensor(INPUT_1)
 assert us.connected
 
 btn = Button()
@@ -69,3 +70,4 @@ def scan_walls():
 while not btn.any():
     sleep(0.1)
     print(us.value(), "mm")
+    scan_walls()
