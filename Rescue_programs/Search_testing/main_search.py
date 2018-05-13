@@ -88,7 +88,7 @@ def move_1_block_2(forward):
     left_running_state = leftMotor.state
     right_running_state = rightMotor.state
     i = 0
-    while i < 40:
+    while i < 70:
         print("while loop count:", i)
 
         if us_front.value() < front_wall_sensing_distance:
