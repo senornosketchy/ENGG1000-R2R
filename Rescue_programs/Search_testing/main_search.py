@@ -88,7 +88,7 @@ def move_1_block_2(forward):
     left_running_state = leftMotor.state
     right_running_state = rightMotor.state
     i = 0
-    while i < 65:
+    while i < 67:
         print("while loop count:", i)
         print("Front US value", us_front.value())
         if us_front.value() < front_wall_sensing_distance:
@@ -181,7 +181,7 @@ def scan_walls():
     global node_info
 
     # Declaring constants
-    DETECTION_DISTANCE = 190
+    DETECTION_DISTANCE = 215
     FRONT_DETECTION_DISTANCE = 260
     FRONT = 0
     RIGHT = 90
