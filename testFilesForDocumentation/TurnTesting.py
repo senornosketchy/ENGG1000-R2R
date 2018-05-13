@@ -62,7 +62,7 @@ def turn(target_angle, direction):
     #     print(gs.value() % 360)
     #     leftMotor.run_direct(duty_cycle_sp=direction*60)
     #     rightMotor.run_direct(duty_cycle_sp=direction*-60)
-
+    print("The final angle is:", init_angle)
 
 def stop_motors():
     # leftMotor.reset()
@@ -74,6 +74,5 @@ def stop_motors():
 turn(90, 1)
 stop_motors()
 
-while not btn.any():
-    sleep(0.1)
-    print(gs.value() % 180)
+print()
+print(gs.value() % 180)
