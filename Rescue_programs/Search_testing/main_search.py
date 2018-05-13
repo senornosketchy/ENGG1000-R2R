@@ -90,7 +90,7 @@ def move_1_block_2(forward):
     i = 0
     while i < 70:
         print("while loop count:", i)
-
+        print("Front US value", us_front.value())
         if us_front.value() < front_wall_sensing_distance:
             stop_motors()
             print()
