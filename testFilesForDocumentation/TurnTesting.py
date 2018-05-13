@@ -44,18 +44,18 @@ def turn(target_angle, direction):
 
     :return: NO RETURN
     """
-    init_angle = gs.value() % 180
+    init_angle = gs.value() % 90
     print("The inital angle:", init_angle)
 
     print("The initial difference is:", init_angle - target_angle)
 
     # TODO: Experiment to find the right speed and time values to turn 90 degrees
-    while abs(init_angle - target_angle) < 95:
+    while abs(init_angle - target_angle) < 90:
         print("The difference angle is now:", abs(init_angle - target_angle))
 
         leftMotor.run_direct(duty_cycle_sp=direction * 40)
         rightMotor.run_direct(duty_cycle_sp=direction * -40)
-        init_angle = gs.value() % 180
+        init_angle = gs.value() % 90
 
     # while gs.value() % 360 != init_angle + direction*(target_angle - 1) or gs.value() % 360 != init_angle + \
     #         direction*target_angle or gs.value() % 360 != init_angle + direction*(target_angle + 1):
