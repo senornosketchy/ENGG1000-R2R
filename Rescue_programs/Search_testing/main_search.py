@@ -89,11 +89,11 @@ def move_1_block_2(forward):
             stop_motors()
             print()
             print("wall was sensed early so motor stopped")
-        elif gs.value < desired_direction - 3:
+        elif gs.value() < desired_direction - 3:
             leftMotor.run_direct(duty_cycle=30)
             rightMotor.run_direct(duty_cycle=75)
             i += 0.1
-        elif gs.value > desired_direction + 3:
+        elif gs.value() > desired_direction + 3:
             leftMotor.run_direct(duty_cycle=75)
             rightMotor.run_direct(duty_cycle=30)
             i += 0.1
