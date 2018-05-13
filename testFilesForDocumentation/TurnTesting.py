@@ -77,4 +77,8 @@ turn(90, 1)
 stop_motors()
 
 print()
-print(gs.value() % 180)
+print(gs.value() % 90)
+
+while not btn.any():
+    sleep(0.1)
+    print(gy.value() % 90)
