@@ -159,7 +159,7 @@ def scan_walls():
     global node_info
 
     # Declaring constants
-    DETECTION_DISTANCE = 60
+    DETECTION_DISTANCE = 100
     FRONT = 0
     RIGHT = 90
     LEFT = -90
