@@ -204,8 +204,8 @@ def scan_walls():
     print()
     print("This is what we know")
     print((forward, left, right))
-    node_info.append((forward, right, left))
-    sleep(5)
+    node_info.append([forward, right, left])
+    sleep(3)
 
 
 def main_program(past_moves, steps):
