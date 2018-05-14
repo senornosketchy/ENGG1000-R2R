@@ -81,9 +81,13 @@ def move_1_block_2(forward):
     # TODO: Figure out how to do desired direction
     desired_direction = gs.value()
     print("The desired direction:", desired_direction)
+    if forward:
+        a = 1
+    else:
+        a = -1
 
-    leftMotor.run_direct(duty_cycle_sp=75)
-    rightMotor.run_direct(duty_cycle_sp=75)
+    leftMotor.run_direct(duty_cycle_sp=a*75)
+    rightMotor.run_direct(duty_cycle_sp=a*75)
 
     left_running_state = leftMotor.state
     right_running_state = rightMotor.state
@@ -97,16 +101,16 @@ def move_1_block_2(forward):
             print("wall was sensed early so motor stopped")
             break
         elif gs.value() < desired_direction - 3:
-            leftMotor.run_direct(duty_cycle_sp=30)
-            rightMotor.run_direct(duty_cycle_sp=75)
+            leftMotor.run_direct(duty_cycle_sp=a*30)
+            rightMotor.run_direct(duty_cycle_sp=a*75)
             i += 1
         elif gs.value() > desired_direction + 3:
-            leftMotor.run_direct(duty_cycle_sp=75)
-            rightMotor.run_direct(duty_cycle_sp=30)
+            leftMotor.run_direct(duty_cycle_sp=a*75)
+            rightMotor.run_direct(duty_cycle_sp=a*30)
             i += 1
         else:
-            leftMotor.run_direct(duty_cycle_sp=75)
-            rightMotor.run_direct(duty_cycle_sp=75)
+            leftMotor.run_direct(duty_cycle_sp=a*75)
+            rightMotor.run_direct(duty_cycle_sp=a*75)
             i += 1
     stop_motors()
 
@@ -123,8 +127,8 @@ def reverse():
     Write the damn docstring
     :return:
     """
-    leftMotor.run_timed(time_sp=1000, speed_sp=-500)
-    rightMotor.run_timed(time_sp=1000, speed_sp=-500)
+    leftMotor.run_timed(time_sp=2000, speed_sp=-500)
+    rightMotor.run_timed(time_sp=2000, speed_sp=-500)
 
 
 def turn(target_angle, direction):
@@ -320,8 +324,8 @@ def backup_program(past_moves, steps):
         print("Steps:", steps)
         print()
         if past_moves[steps] == 0:
-            reverse()
-            sleep(3)
+            move_1_block_2(False)
+            sleep(5)
             stop_motors()
             past_moves = past_moves[: -1]
             steps -= 1
