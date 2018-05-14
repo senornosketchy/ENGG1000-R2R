@@ -314,7 +314,7 @@ def backup_program(past_moves, steps):
     """
     last_entry = -1
     while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
-        print()
+        print("-----INSIDE THE BACKUP LOOP-------")
         print("This is the past moves list:", past_moves)
         print("This is node_info:", node_info)
         print("Steps:", steps)
@@ -335,7 +335,11 @@ def backup_program(past_moves, steps):
             past_moves = past_moves[: -1]
             steps -= 1
             node_info[last_entry][2] = False
-
+        else:
+            print()
+            print("-----Ya fucked up-----")
+            print()
+    print("---OUTSIDE THE BACKUP LOOP---")
 
 past_moves = [0]  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = []  # Holds the boolean values of the walls in each node, as we come across them
