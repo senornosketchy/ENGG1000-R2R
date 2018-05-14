@@ -67,12 +67,26 @@ def stop_motors():
 #should return to orig position
 #L, R, R, L
 gsturn(True)
+sleep(.5)
+print("The final value isL", gs.value())
 gsturn(False);
+sleep(.5)
+print("The final value isL", gs.value())
 gsturn(False);
+sleep(.5)
+print("The final value isL", gs.value())
 sleep(3)
 gsturn(True);
+sleep(.5)
+print("The final value isL", gs.value())
 gsturn(True);
+sleep(.5)
+print("The final value isL", gs.value())
 gsturn(True);
+sleep(.5)
+print("The final value isL", gs.value())
 gsturn(True);
+sleep(.5)
+print("The final value isL", gs.value())
 stop_motors()
 
