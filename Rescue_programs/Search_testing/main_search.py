@@ -162,22 +162,6 @@ def turn(target_angle, direction):
 
 
 def gsturn(left):
-    # increments setting for the turn
-    direction = 1
-    if left:
-        direction = -1
-
-    # MAJOR TURN
-    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=200, ramp_down_sp=90)
-    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=200, ramp_down_sp=90)
-
-    # hold until the motor starts
-    leftMotor.wait_while('running')
-
-    stop_motors()
-
-
-def gsturn(left):
     # SET DIR PREFIX AND RECORD FIRST ANGLE
 
     beginning_angle = gs.value()
