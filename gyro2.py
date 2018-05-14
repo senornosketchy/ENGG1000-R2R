@@ -38,14 +38,14 @@ def gsturn(left):
         
     
     #FIND NEAREST 90 IN THE DIRECTION OF TURN
-    destination_angle = beginning_angle
+    destination_angle = beginning_angle + (direction_prefix * 45)
     while destination_angle % 90 != 0:
         destination_angle += direction_prefix
     print("Destination is ", destination_angle)
     
     #START DRIVING IN CORRECT DIR
-    leftMotor.run_direct(duty_cycle_sp=   60 * direction_prefix)
-    rightMotor.run_direct(duty_cycle_sp= -60 * direction_prefix)
+    leftMotor.run_direct(duty_cycle_sp=   -60 * direction_prefix)
+    rightMotor.run_direct(duty_cycle_sp= 60 * direction_prefix)
     
     #LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
     while (gs.value() < destination_angle - 3 and gs.value() < destination_angle + 3) or (gs.value() > destination_angle - 3 and gs.value() > destination_angle + 3):
