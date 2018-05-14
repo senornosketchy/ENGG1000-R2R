@@ -48,7 +48,7 @@ def gsturn(left):
     rightMotor.run_direct(duty_cycle_sp= -60 * direction_prefix)
     
     #LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
-    while (gs.value() < destination_angle - 3 and gs.value() < destination_angle + 3) or (gs.value() > destination_angle - 3 and gs.value() > destination_angle + 3):
+    while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
         print(gs.value());
     
     #STOP MOTORS IMMEDIATELY    
