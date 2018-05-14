@@ -321,6 +321,7 @@ def backup_program(past_moves, steps):
         print()
         if past_moves[steps] == 0:
             reverse()
+            sleep(3)
             stop_motors()
             past_moves = past_moves[: -1]
             steps -= 1
@@ -340,6 +341,7 @@ def backup_program(past_moves, steps):
             print("-----Ya fucked up-----")
             print()
     print("---OUTSIDE THE BACKUP LOOP---")
+
 
 past_moves = [0]  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = []  # Holds the boolean values of the walls in each node, as we come across them
