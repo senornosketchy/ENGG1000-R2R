@@ -41,8 +41,12 @@ def gsturn(left):
     destination_angle = beginning_angle + (direction_prefix * 45)
     while destination_angle % 90 != 0:
         destination_angle += direction_prefix
+
+    destination_angle = destination_angle + (-direction_prefix*4)
     print("Destination is ", destination_angle)
-    
+
+
+
     #START DRIVING IN CORRECT DIR
     leftMotor.run_direct(duty_cycle_sp=   60 * direction_prefix)
     rightMotor.run_direct(duty_cycle_sp= -60 * direction_prefix)
