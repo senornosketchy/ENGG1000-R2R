@@ -12,8 +12,12 @@ from ev3dev.ev3 import *
 
 # Connect Motors
 rightMotor = Motor(OUTPUT_A)
+rightMotor.stop()
+rightMotor.reset()
 assert rightMotor.connected
 leftMotor = Motor(OUTPUT_D)
+leftMotor.stop()
+leftMotor.reset()
 assert leftMotor.connected
 print("Motors connected")
 gs = GyroSensor()
@@ -48,13 +52,18 @@ def gsturn(left):
 
 
     #START DRIVING IN CORRECT DIR
-    leftMotor.run_direct(duty_cycle_sp=   60 * direction_prefix)
-    rightMotor.run_direct(duty_cycle_sp= -60 * direction_prefix)
+    leftMotor.run_to_rel_pos( position_sp=  350 * direction_prefix, speed_sp=200, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp= -350 * direction_prefix, speed_sp=200, ramp_down_sp=90)
+
+    run_state = leftMotor.state
     
     #LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
     while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
         print(gs.value());
-    
+        if leftMotor.state != run_state:
+            print("Motor was stopped by rel_pos")
+            break
+
     #STOP MOTORS IMMEDIATELY    
     stop_motors()
     print("finishing gyroscopic turn")
