@@ -333,6 +333,6 @@ def backup_program(past_moves, steps):
 
 past_moves = [0]  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = [[True, False, False]]  # Holds the boolean values of the walls in each node, as we come across them
-steps = 1  # This is our current step count
+steps = 0  # This is our current step count
 
 main_program(past_moves, steps)
