@@ -312,6 +312,7 @@ def backup_program(past_moves, steps):
     last_entry = -1
     while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
         print("This is the past moves list:", past_moves)
+        print("Steps:", steps)
         if past_moves[steps] == 0:
             reverse()
             stop_motors()
