@@ -161,7 +161,7 @@ def turn(target_angle, direction):
     print("The final angle is:", init_angle)
 
 
-def turn_guess(left):
+def gsturn(left):
     # increments setting for the turn
     direction = 1
     if left:
@@ -177,7 +177,41 @@ def turn_guess(left):
     stop_motors()
 
 
+def gsturn(left):
+    # SET DIR PREFIX AND RECORD FIRST ANGLE
 
+    beginning_angle = gs.value()
+    if left:
+        # assuming that the right (clockwise) dir is positive
+        direction_prefix = -1
+    else:
+        direction_prefix = 1
+
+    # FIND NEAREST 90 IN THE DIRECTION OF TURN
+    destination_angle = beginning_angle + (direction_prefix * 45)
+    while destination_angle % 90 != 0:
+        destination_angle += direction_prefix
+
+    destination_angle = destination_angle + (-direction_prefix * 4)
+    print("Destination is ", destination_angle)
+
+    # START DRIVING IN CORRECT DIR
+    leftMotor.run_to_rel_pos(position_sp=350 * direction_prefix, speed_sp=200, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp=-350 * direction_prefix, speed_sp=200, ramp_down_sp=90)
+
+    run_state = leftMotor.state
+
+    # LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
+    while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (
+            gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
+        print(gs.value());
+        if leftMotor.state != run_state:
+            print("Motor was stopped by rel_pos")
+            break
+
+    # STOP MOTORS IMMEDIATELY
+    stop_motors()
+    print("finishing gyroscopic turn")
 
 
 def ultrasonic_movement(destination):
@@ -291,7 +325,7 @@ def decision_program(steps):
         if node_info[steps][1]:
             print("We're goin right?")
             # turn(90, 1)
-            turn_guess(False)
+            gsturn(False)
             past_moves.append(1)
             steps += 1
             move_1_block_2(True)
@@ -303,7 +337,7 @@ def decision_program(steps):
         elif node_info[steps][2]:
             print("we're goin left?")
             # turn(-90, -1)
-            turn_guess(True)
+            gsturn(True)
             past_moves.append(2)
             node_info.append(0)
             steps += 1
@@ -334,12 +368,12 @@ def backup_program(past_moves, steps):
             steps -= 1
             node_info[steps][1] = False
         elif past_moves[steps] == 1:
-            turn_guess(-1)
+            gsturn(-1)
             past_moves = past_moves[: -1]
             steps -= 1
             node_info[steps][1] = False
         elif past_moves[steps] == 2:
-            turn_guess(1)
+            gsturn(1)
             past_moves = past_moves[: -1]
             steps -= 1
             node_info[last_entry][2] = False
