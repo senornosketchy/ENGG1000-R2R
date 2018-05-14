@@ -44,8 +44,8 @@ def gsturn(left):
     print("Destination is ", destination_angle)
     
     #START DRIVING IN CORRECT DIR
-    leftMotor.run_direct(duty_cycle_sp= -60 * direction_prefix)
-    rightMotor.run_direct(duty_cycle_sp= 60 * direction_prefix)
+    leftMotor.run_direct(duty_cycle_sp=   60 * direction_prefix)
+    rightMotor.run_direct(duty_cycle_sp= -60 * direction_prefix)
     
     #LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
     while (gs.value() < destination_angle - 3 and gs.value() < destination_angle + 3) or (gs.value() > destination_angle - 3 and gs.value() > destination_angle + 3):
