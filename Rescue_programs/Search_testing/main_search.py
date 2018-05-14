@@ -264,9 +264,12 @@ def decision_program(steps):
 
     :return: NO RETURN
     """
+    print()
     print("This is node info:", node_info)
-    print("sleeping")
-    sleep(5)
+    print("This is past moves:", past_moves)
+    print("Steps:", steps)
+    print()
+    sleep(2)
     if node_info[steps][0]:
         print()
         print("Let's go forward")
@@ -333,6 +336,6 @@ def backup_program(past_moves, steps):
 
 past_moves = [0]  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = [[True, False, False]]  # Holds the boolean values of the walls in each node, as we come across them
-steps = 0  # This is our current step count
+steps = 1  # This is our current step count
 
 main_program(past_moves, steps)
