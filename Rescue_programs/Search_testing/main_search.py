@@ -177,6 +177,9 @@ def turn_guess(left):
     stop_motors()
 
 
+
+
+
 def ultrasonic_movement(destination):
     servo.run_to_abs_pos(position_sp=destination, speed_sp=75, ramp_down_sp=90)
 

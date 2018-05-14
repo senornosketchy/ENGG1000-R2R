@@ -69,7 +69,10 @@ def stop_motors():
 gsturn(True)
 gsturn(False);
 gsturn(False);
+sleep(3)
 gsturn(True);
-
+gsturn(True);
+gsturn(True);
+gsturn(True);
 stop_motors()
 
