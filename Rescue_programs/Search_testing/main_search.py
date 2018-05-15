@@ -390,4 +390,4 @@ node_info = []  # Holds the boolean values of the walls in each node, as we come
 steps = 0  # This is our current step count
 last_backup = False
 
-main_program(past_moves, steps)
+main_program(past_moves, steps, last_backup)
