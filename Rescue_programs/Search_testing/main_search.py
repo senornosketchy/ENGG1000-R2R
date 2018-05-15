@@ -210,6 +210,7 @@ def ultrasonic_movement(destination):
 
 def scan_walls():
     global node_info
+    global i
 
     # Declaring constants
     DETECTION_DISTANCE = 215
@@ -257,7 +258,10 @@ def scan_walls():
     print()
     print("This is what we know")
     print((forward, left, right))
-    node_info.append([forward, right, left])
+    if i < 50:
+        node_info[steps] = [forward, right, left]
+    else:
+        node_info.append([forward, right, left])
     sleep(1)
 
 
@@ -269,6 +273,8 @@ def main_program(past_moves, steps, last_backup):
     :return:
     """
     print("-----------RUNNING MAINPROGRAM------------")
+    global i
+
     while not btn.any():  # This should eventually be replaced with a colour sensor reading
         print()
         if not last_backup:
@@ -367,7 +373,7 @@ def backup_program(past_moves, steps):
         print("Steps:", steps)
         print()
         if past_moves[steps] == 0:
-            move_1_block_2(False)
+            move_1_block_3()
             sleep(5)
             stop_motors()
             past_moves = past_moves[: -1]
