@@ -52,7 +52,7 @@ ultrasonic_wall_sensing_distance = 210
 front_wall_sensing_distance = 21
 scan_rotation_speed = 150
 wheel_turn_rotations_per_turn = 360 * 0.89 * 1
-
+i = 0
 
 # ---MOVEMENT FUNCTIONS--- #
 #
@@ -80,6 +80,9 @@ def move_1_block(forward):
 def move_1_block_2(forward):
     # TODO: Figure out how to do desired direction
     desired_direction = gs.value()
+
+    global i
+
     print("The desired direction:", desired_direction)
     if forward:
         a = 1
@@ -304,14 +307,18 @@ def decision_program(steps, last_backup):
     print("This is past moves:", past_moves)
     print("Steps:", steps)
     print()
-    sleep(2)
+    sleep(1)
+
+    global i
+
     if node_info[steps][0]:
         print()
         print("Let's go forward")
         move_1_block_2(True)
         stop_motors()
-        past_moves.append(0)
-        steps += 1
+        if i > 50:
+            past_moves.append(0)
+            steps += 1
         last_backup = False
         main_program(past_moves, steps, last_backup)
     else:
@@ -319,16 +326,16 @@ def decision_program(steps, last_backup):
         print("Let's not go forward")
         if node_info[steps][1]:
             print("We're goin right")
-            # turn(90, 1)
             gsturn(False)
             past_moves.append(1)
             steps += 1
+            node_info.append(0)
             sleep(1)
             move_1_block_2(True)
             stop_motors()
-            past_moves.append(0)
-            node_info.append(0)
-            steps += 1
+            if i > 50:
+                past_moves.append(0)
+                steps += 1
             last_backup = False
             main_program(past_moves, steps, last_backup)
         elif node_info[steps][2]:
@@ -341,8 +348,9 @@ def decision_program(steps, last_backup):
             sleep(1)
             move_1_block_2(True)
             stop_motors()
-            past_moves.append(0)
-            steps += 1
+            if i > 50:
+                past_moves.append(0)
+                steps += 1
             last_backup = False
             main_program(past_moves, steps, last_backup)
 
