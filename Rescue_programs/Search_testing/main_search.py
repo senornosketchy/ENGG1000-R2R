@@ -24,9 +24,7 @@ assert leftMotor.connected
 servo = Motor(OUTPUT_C)
 assert servo.connected
 
-print()
-print("Motors Connected")
-print()
+print("\nMotors Connected\n")
 
 # Connect sensors
 sleep(0.5)
@@ -48,7 +46,7 @@ print()
 btn = Button()
 
 # ---GLOBAL IMPORTANT SETTINGS--- #
-ultrasonic_wall_sensing_distance = 210
+ultrasonic_wall_sensing_distance = 240
 front_wall_sensing_distance = 20
 scan_rotation_speed = 150
 wheel_turn_rotations_per_turn = 360 * 0.89 * 1
@@ -307,6 +305,7 @@ def decision_program(steps, last_backup):
 
     :return: NO RETURN
     """
+
     print("-----RUNNING DECISION PROGRAM-----")
     print()
     print("This is node info:", node_info)

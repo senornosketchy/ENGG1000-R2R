@@ -231,19 +231,46 @@ def move_1_block(forward):
 
 # this function turns 90 degrees
 def turn(left):
-    # increments setting for the turn
-    direction = 1
+    # SET DIR PREFIX AND RECORD FIRST ANGLE
+    print()
+    print("------STARTING TURN------")
+    beginning_angle = gs.value()
     if left:
-        direction = -1
+        # assuming that the right (clockwise) dir is positive
+        direction_prefix = -1
+    else:
+        direction_prefix = 1
 
-    # MAJOR TURN
-    leftMotor.run_to_rel_pos(position_sp=wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
-    rightMotor.run_to_rel_pos(position_sp=-wheel_turn_rotations_per_turn * direction, speed_sp=100, ramp_down_sp=90)
+    # FIND NEAREST 90 IN THE DIRECTION OF TURN
+    destination_angle = beginning_angle + (direction_prefix * 45)
+    while destination_angle % 90 != 0:
+        destination_angle += direction_prefix
 
-    # hold until the motor starts
-    leftMotor.wait_while('running')
+    destination_angle = destination_angle + (-direction_prefix * 4)
+    print("Destination is ", destination_angle)
 
+    # START DRIVING IN CORRECT DIR
+    leftMotor.run_to_rel_pos(position_sp=350 * direction_prefix, speed_sp=200, ramp_down_sp=90)
+    rightMotor.run_to_rel_pos(position_sp=-350 * direction_prefix, speed_sp=200, ramp_down_sp=90)
+
+    run_state = leftMotor.state
+
+    # LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
+    while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (
+            gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
+        print(gs.value())
+        if leftMotor.state != run_state:
+            print("Motor was stopped by rel_pos")
+            break
+
+    # STOP MOTORS IMMEDIATELY
     stop_motors()
+    print("finishing gyroscopic turn")
+    print("Final position is:", gs.value())
+    print()
+    print("------TURN FINISHED-------")
+    print()
+
 
 
 def correct():
