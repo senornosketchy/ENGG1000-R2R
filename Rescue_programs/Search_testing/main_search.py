@@ -121,11 +121,12 @@ def move_1_block_2(forward):
 def move_1_block_3():
     # TODO: Figure out how to do desired direction
     desired_direction = gs.value()
-
+    print("-----ENTERING REVERSING FUNCTION-----")
     global i
 
     a = -1
     ultrasonic_movement(180)
+    print("ULTRASONIC SHOULD BE MOVING")
     sleep(3)
     leftMotor.run_direct(duty_cycle_sp=a*75)
     rightMotor.run_direct(duty_cycle_sp=a*75)
@@ -135,7 +136,6 @@ def move_1_block_3():
     i = 0
     while i < 67:
         print("while loop count:", i)
-        print("Front US value", us_front.value())
         if us.value() < 150:
             stop_motors()
             print()
