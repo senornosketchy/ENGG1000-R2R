@@ -213,7 +213,7 @@ def move_1_block(forward):
         correct()
 
     spins = wheel_rotations_per_block
-    if forward:
+    if not forward:
         spins = spins * -1
 
     leftMotor.run_to_rel_pos(position_sp=spins, speed_sp=350, ramp_down_sp=120)
