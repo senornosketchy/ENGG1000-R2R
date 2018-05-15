@@ -260,28 +260,33 @@ def scan_walls():
     sleep(1)
 
 
-def main_program(past_moves, steps):
+def main_program(past_moves, steps, last_backup):
     """
     WRITE THE DAMN DOCSTRING
     :param past_moves:
     :param steps:
     :return:
     """
+    print("-----------RUNNING MAINPROGRAM------------")
     while not btn.any():  # This should eventually be replaced with a colour sensor reading
         print()
-        print("Bout to scan walls")
-        scan_walls()
+        if not last_backup:
+            scan_walls()
+            print()
+            print("Bout to scan walls")
         if node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
             print()
             print("Looks like there's somewhere to go")
             decision_program(steps)
         else:
+            last_backup = True
             print()
             print("Time to back the fuck up")
+            print()
             backup_program(past_moves, steps)
 
 
-def decision_program(steps):
+def decision_program(steps, last_backup):
     """
 
     :param steps: How many steps forward we have taken or the current reference index to past_moves
@@ -294,6 +299,7 @@ def decision_program(steps):
 
     :return: NO RETURN
     """
+    print("-----RUNNING DECISION PROGRAM-----")
     print()
     print("This is node info:", node_info)
     print("This is past moves:", past_moves)
@@ -307,12 +313,13 @@ def decision_program(steps):
         stop_motors()
         past_moves.append(0)
         steps += 1
-        main_program(past_moves, steps)
+        last_backup = False
+        main_program(past_moves, steps, last_backup)
     else:
         print()
         print("Let's not go forward")
         if node_info[steps][1]:
-            print("We're goin right?")
+            print("We're goin right")
             # turn(90, 1)
             gsturn(False)
             past_moves.append(1)
@@ -323,9 +330,10 @@ def decision_program(steps):
             past_moves.append(0)
             node_info.append(0)
             steps += 1
-            main_program(past_moves, steps)
+            last_backup = False
+            main_program(past_moves, steps, last_backup)
         elif node_info[steps][2]:
-            print("we're goin left?")
+            print("we're goin left")
             # turn(-90, -1)
             gsturn(True)
             past_moves.append(2)
@@ -336,7 +344,8 @@ def decision_program(steps):
             stop_motors()
             past_moves.append(0)
             steps += 1
-            main_program(past_moves, steps)
+            last_backup = False
+            main_program(past_moves, steps, last_backup)
 
 
 def backup_program(past_moves, steps):
@@ -345,6 +354,7 @@ def backup_program(past_moves, steps):
     :return:
     """
     last_entry = -1
+    last_backup
     while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
         print("-----INSIDE THE BACKUP LOOP-------")
         print("This is the past moves list:", past_moves)
@@ -372,11 +382,12 @@ def backup_program(past_moves, steps):
             print()
             print("-----Ya fucked up-----")
             print()
-    print("---OUTSIDE THE BACKUP LOOP---")
+    print("------OUTSIDE THE BACKUP LOOP-------")
 
 
 past_moves = [0]  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = []  # Holds the boolean values of the walls in each node, as we come across them
 steps = 0  # This is our current step count
+last_backup = False
 
 main_program(past_moves, steps)
