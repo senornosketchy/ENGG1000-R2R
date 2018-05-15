@@ -366,7 +366,7 @@ def backup_program(past_moves, steps):
     :return:
     """
     last_entry = -1
-    while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
+    while node_info[steps][0] is False and node_info[steps][1] is False and node_info[steps][2] is False:
         print("-----INSIDE THE BACKUP LOOP-------")
         print("This is the past moves list:", past_moves)
         print("This is node_info:", node_info)
