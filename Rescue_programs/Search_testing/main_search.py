@@ -258,7 +258,7 @@ def scan_walls():
     print()
     print("This is what we know")
     print((forward, left, right))
-    if i < 50:
+    if i < 40:
         node_info[steps] = [forward, right, left]
     else:
         node_info.append([forward, right, left])
@@ -321,7 +321,7 @@ def decision_program(steps, last_backup):
         print("Let's go forward")
         move_1_block_2(True)
         stop_motors()
-        if i > 50:
+        if i > 40:
             past_moves.append(0)
             steps += 1
         last_backup = False
@@ -338,7 +338,7 @@ def decision_program(steps, last_backup):
             sleep(1)
             move_1_block_2(True)
             stop_motors()
-            if i > 50:
+            if i > 40:
                 past_moves.append(0)
                 steps += 1
             last_backup = False
@@ -353,7 +353,7 @@ def decision_program(steps, last_backup):
             sleep(1)
             move_1_block_2(True)
             stop_motors()
-            if i > 50:
+            if i > 40:
                 past_moves.append(0)
                 steps += 1
             last_backup = False
