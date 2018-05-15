@@ -17,7 +17,7 @@ assert leftMotor.connected
 print("Motors connected")
 
 # connect gyro
-gs = GyroSensor()
+gs = GyroSensor(INPUT_3)
 assert gs.connected
 print("Gyro connected")
 
@@ -35,7 +35,7 @@ assert us_front.connected
 print("Ultrasonic Connected")
 
 # connect color
-cs = ColorSensor(INPUT_3)
+cs = ColorSensor(INPUT_4)
 assert cs.connected
 print("Color Connected")
 
