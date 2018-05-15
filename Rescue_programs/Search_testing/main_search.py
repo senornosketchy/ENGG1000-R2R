@@ -205,7 +205,7 @@ def gsturn(left):
 
 
 def ultrasonic_movement(destination):
-    servo.run_to_abs_pos(position_sp=destination, speed_sp=100, ramp_down_sp=90)
+    servo.run_to_abs_pos(position_sp=destination, speed_sp=200, ramp_down_sp=90)
 
 
 def scan_walls():
@@ -223,7 +223,7 @@ def scan_walls():
     print("Lookin forward")
     # forward
     ultrasonic_movement(FRONT)
-    sleep(3.5)
+    sleep(2)
     if us.value() <= FRONT_DETECTION_DISTANCE:
         forward = False
         print("Not goin that way")
@@ -235,7 +235,7 @@ def scan_walls():
     print("Lookin to the side")
     # left
     ultrasonic_movement(LEFT)
-    sleep(3.5)
+    sleep(2)
     if us.value() <= DETECTION_DISTANCE:
         left = False
         print("Not goin left")
@@ -247,7 +247,7 @@ def scan_walls():
     print()
     print("Lookin the other side")
     ultrasonic_movement(RIGHT)
-    sleep(3.5)
+    sleep(2)
     if us.value() <= DETECTION_DISTANCE:
         right = False
         print("Right is blocked")
@@ -372,19 +372,27 @@ def backup_program(past_moves, steps):
         print("This is node_info:", node_info)
         print("Steps:", steps)
         print()
+        print()
         if past_moves[steps] == 0:
+            print("IN THE RERVERSY BIT")
+            print()
             move_1_block_3()
             sleep(5)
             stop_motors()
             past_moves = past_moves[: -1]
             steps -= 1
             node_info[steps][1] = False
+            print("END OF THE THE REVERSY BIT")
+            print()
+            print()
         elif past_moves[steps] == 1:
+            print("If we ever get to this bit holy shit")
             gsturn(-1)
             past_moves = past_moves[: -1]
             steps -= 1
             node_info[steps][1] = False
         elif past_moves[steps] == 2:
+            print("If we ever get to this bit holy shit: part 2")
             gsturn(1)
             past_moves = past_moves[: -1]
             steps -= 1
@@ -392,6 +400,7 @@ def backup_program(past_moves, steps):
         else:
             print()
             print("-----Ya fucked up-----")
+            print("I fully expect to get here :(")
             print()
     print("------OUTSIDE THE BACKUP LOOP-------")
 
