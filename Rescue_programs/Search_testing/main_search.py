@@ -380,8 +380,8 @@ def backup_program(past_moves, steps):
             sleep(5)
             stop_motors()
             past_moves = past_moves[: -1]
-            steps -= 1
             node_info[steps][1] = False
+            steps -= 1
             print("END OF THE THE REVERSY BIT")
             print()
             print()
