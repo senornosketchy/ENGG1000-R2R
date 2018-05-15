@@ -191,6 +191,7 @@ def gsturn(left):
     # LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
     while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (
             gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
+        print(gs.value())
         if leftMotor.state != run_state:
             print("Motor was stopped by rel_pos")
             break
