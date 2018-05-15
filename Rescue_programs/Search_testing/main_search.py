@@ -52,7 +52,7 @@ ultrasonic_wall_sensing_distance = 210
 front_wall_sensing_distance = 21
 scan_rotation_speed = 150
 wheel_turn_rotations_per_turn = 360 * 0.89 * 1
-i = 0
+i = 65
 
 # ---MOVEMENT FUNCTIONS--- #
 #
