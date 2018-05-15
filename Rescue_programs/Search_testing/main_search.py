@@ -48,7 +48,7 @@ print()
 btn = Button()
 
 # ---GLOBAL IMPORTANT SETTINGS--- #
-ultrasonic_wall_sensing_distance = 190
+ultrasonic_wall_sensing_distance = 210
 front_wall_sensing_distance = 21
 scan_rotation_speed = 150
 wheel_turn_rotations_per_turn = 360 * 0.89 * 1
@@ -164,7 +164,7 @@ def turn(target_angle, direction):
 def gsturn(left):
     # SET DIR PREFIX AND RECORD FIRST ANGLE
     print()
-    print("---STARTING TURN----")
+    print("------STARTING TURN------")
     beginning_angle = gs.value()
     if left:
         # assuming that the right (clockwise) dir is positive
@@ -189,7 +189,6 @@ def gsturn(left):
     # LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
     while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (
             gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
-        print(gs.value())
         if leftMotor.state != run_state:
             print("Motor was stopped by rel_pos")
             break
@@ -199,7 +198,7 @@ def gsturn(left):
     print("finishing gyroscopic turn")
     print("Final position is:", gs.value())
     print()
-    print("----TURN FINISHED------")
+    print("------TURN FINISHED-------")
     print()
 
 
