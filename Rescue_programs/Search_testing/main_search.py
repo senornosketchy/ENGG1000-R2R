@@ -189,7 +189,7 @@ def gsturn(left):
     # LOOP TO BREAK ONCE THE GYRO IS IN CORRECT RANGE
     while (gs.value() < destination_angle - 1 and gs.value() < destination_angle + 1) or (
             gs.value() > destination_angle - 1 and gs.value() > destination_angle + 1):
-        print(gs.value());
+        print(gs.value())
         if leftMotor.state != run_state:
             print("Motor was stopped by rel_pos")
             break
@@ -277,7 +277,7 @@ def main_program(past_moves, steps, last_backup):
         if node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
             print()
             print("Looks like there's somewhere to go")
-            decision_program(steps)
+            decision_program(steps, last_backup)
         else:
             last_backup = True
             print()
@@ -354,7 +354,6 @@ def backup_program(past_moves, steps):
     :return:
     """
     last_entry = -1
-    last_backup
     while node_info[steps][0] == False and node_info[steps][1] == False and node_info[steps][2] == False:
         print("-----INSIDE THE BACKUP LOOP-------")
         print("This is the past moves list:", past_moves)
