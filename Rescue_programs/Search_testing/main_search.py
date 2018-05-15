@@ -163,7 +163,8 @@ def turn(target_angle, direction):
 
 def gsturn(left):
     # SET DIR PREFIX AND RECORD FIRST ANGLE
-
+    print()
+    print("---STARTING TURN----")
     beginning_angle = gs.value()
     if left:
         # assuming that the right (clockwise) dir is positive
@@ -196,6 +197,10 @@ def gsturn(left):
     # STOP MOTORS IMMEDIATELY
     stop_motors()
     print("finishing gyroscopic turn")
+    print("Final position is:", gs.value())
+    print()
+    print("----TURN FINISHED------")
+    print()
 
 
 def ultrasonic_movement(destination):
@@ -312,6 +317,7 @@ def decision_program(steps):
             gsturn(False)
             past_moves.append(1)
             steps += 1
+            sleep(1)
             move_1_block_2(True)
             stop_motors()
             past_moves.append(0)
@@ -325,6 +331,7 @@ def decision_program(steps):
             past_moves.append(2)
             node_info.append(0)
             steps += 1
+            sleep(1)
             move_1_block_2(True)
             stop_motors()
             past_moves.append(0)
