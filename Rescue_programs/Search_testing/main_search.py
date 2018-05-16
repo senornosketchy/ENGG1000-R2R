@@ -273,6 +273,7 @@ def can_check(us_last):
     difference2 = us_last - us_front.value()
     sleep(0.1)
     difference3 = us_last - us_front.value()
+    front_wall_us_sensing_distance = 10
 
     if (
             difference > 125 and difference2 > 125 and difference3 > 125) and cs.red >= 6 and us_front.value() <= front_wall_us_sensing_distance:
@@ -281,7 +282,6 @@ def can_check(us_last):
     else:
         return True
         # beeping_flashing()
-
 
 
 def main_program(past_moves, steps, last_backup):
