@@ -178,7 +178,7 @@ def gsturn(left):
     while destination_angle % 90 != 0:
         destination_angle += direction_prefix
 
-    destination_angle = destination_angle + (-direction_prefix * 2)
+    destination_angle = destination_angle + (-direction_prefix * 3)
     print("Destination is ", destination_angle)
 
     # START DRIVING IN CORRECT DIR
