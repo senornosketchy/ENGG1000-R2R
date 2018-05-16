@@ -262,7 +262,26 @@ def scan_walls():
         node_info[steps] = [forward, right, left]
     else:
         node_info.append([forward, right, left])
+
+    ultrasonic_movement(FRONT)
     sleep(1)
+
+
+def can_check(us_last):
+    difference = us_last - us_front.value()
+    sleep(0.1)
+    difference2 = us_last - us_front.value()
+    sleep(0.1)
+    difference3 = us_last - us_front.value()
+
+    if (
+            difference > 125 and difference2 > 125 and difference3 > 125) and cs.red >= 6 and us_front.value() <= front_wall_us_sensing_distance:
+        print("\nCAN SENSED\n")
+        return False
+    else:
+        return True
+        # beeping_flashing()
+
 
 
 def main_program(past_moves, steps, last_backup):
@@ -275,14 +294,14 @@ def main_program(past_moves, steps, last_backup):
     print("-----------RUNNING MAIN PROGRAM------------")
     global i
     global can_not_found
-
+    can_not_found = can_check()
     while can_not_found:  # This should eventually be replaced with a colour sensor reading
         print()
         if not last_backup:
             scan_walls()
             print()
             print("Bout to scan walls")
-        elif node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
+        if node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
             print()
             print("Looks like there's somewhere to go")
             decision_program(steps, last_backup)
@@ -292,7 +311,7 @@ def main_program(past_moves, steps, last_backup):
             print("Time to back the fuck up")
             print()
             backup_program(past_moves, steps)
-
+    getting_back(past_moves)
 
 def decision_program(steps, last_backup):
     """
@@ -413,6 +432,8 @@ def backup_program(past_moves, steps):
 
 
 def getting_back(past_moves):
+    print()
+    print("---------TRYNA GET THE CAN TO SAFETY-------------")
     past_moves = past_moves.reverse()
     for move in past_moves:
         if move == 0:
