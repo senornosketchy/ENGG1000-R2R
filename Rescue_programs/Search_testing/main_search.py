@@ -51,6 +51,7 @@ front_wall_sensing_distance = 20
 scan_rotation_speed = 150
 wheel_turn_rotations_per_turn = 360 * 0.89 * 1
 i = 65
+can_not_found = True
 
 # ---MOVEMENT FUNCTIONS--- #
 #
@@ -271,16 +272,17 @@ def main_program(past_moves, steps, last_backup):
     :param steps:
     :return:
     """
-    print("-----------RUNNING MAINPROGRAM------------")
+    print("-----------RUNNING MAIN PROGRAM------------")
     global i
+    global can_not_found
 
-    while not btn.any():  # This should eventually be replaced with a colour sensor reading
+    while can_not_found:  # This should eventually be replaced with a colour sensor reading
         print()
         if not last_backup:
             scan_walls()
             print()
             print("Bout to scan walls")
-        if node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
+        elif node_info[steps][0] or node_info[steps][1] or node_info[steps][2]:
             print()
             print("Looks like there's somewhere to go")
             decision_program(steps, last_backup)
