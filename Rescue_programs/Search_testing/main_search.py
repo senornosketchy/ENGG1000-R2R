@@ -178,7 +178,7 @@ def gsturn(left):
     while destination_angle % 90 != 0:
         destination_angle += direction_prefix
 
-    destination_angle = destination_angle + (-direction_prefix * 4)
+    destination_angle = destination_angle + (-direction_prefix * 2)
     print("Destination is ", destination_angle)
 
     # START DRIVING IN CORRECT DIR
@@ -294,7 +294,7 @@ def main_program(past_moves, steps, last_backup):
     print("-----------RUNNING MAIN PROGRAM------------")
     global i
     global can_not_found
-    can_not_found = can_check()
+    # can_not_found = can_check()
     while can_not_found:  # This should eventually be replaced with a colour sensor reading
         print()
         if not last_backup:
