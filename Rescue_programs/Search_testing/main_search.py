@@ -34,11 +34,11 @@ us_front = UltrasonicSensor(INPUT_2)
 assert us_front.connected
 print("Ultrasonics Connected")
 print()
-cs = ColorSensor(INPUT_4)
+cs = ColorSensor(INPUT_3)
 assert cs.connected
 print("Colour sensor connected")
 print()
-gs = GyroSensor(INPUT_3)
+gs = GyroSensor(INPUT_4)
 assert gs.connected
 print("Gyro sensor connected")
 print()
@@ -102,14 +102,14 @@ def move_1_block_2(forward):
             print()
             print("wall was sensed early so motor stopped")
             break
-        elif gs.value() < desired_direction - 3:
-            leftMotor.run_direct(duty_cycle_sp=a*30)
-            rightMotor.run_direct(duty_cycle_sp=a*75)
-            i += 1
-        elif gs.value() > desired_direction + 3:
-            leftMotor.run_direct(duty_cycle_sp=a*75)
-            rightMotor.run_direct(duty_cycle_sp=a*30)
-            i += 1
+        # elif gs.value() < desired_direction - 3:
+        #     leftMotor.run_direct(duty_cycle_sp=a*30)
+        #     rightMotor.run_direct(duty_cycle_sp=a*75)
+        #     i += 1
+        # elif gs.value() > desired_direction + 3:
+        #     leftMotor.run_direct(duty_cycle_sp=a*75)
+        #     rightMotor.run_direct(duty_cycle_sp=a*30)
+        #     i += 1
         else:
             leftMotor.run_direct(duty_cycle_sp=a*75)
             rightMotor.run_direct(duty_cycle_sp=a*75)
