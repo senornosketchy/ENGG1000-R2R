@@ -435,6 +435,8 @@ def getting_back(past_moves):
     print()
     print("---------TRYNA GET THE CAN TO SAFETY-------------")
     past_moves = past_moves.reverse()
+    gsturn(True)
+    gsturn(True)
     for move in past_moves:
         if move == 0:
             move_1_block_2(True)
