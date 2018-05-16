@@ -410,6 +410,19 @@ def backup_program(past_moves, steps):
     print("------OUTSIDE THE BACKUP LOOP-------")
 
 
+def getting_back(past_moves):
+    past_moves = past_moves.reverse()
+    for move in past_moves:
+        if move == 0:
+            move_1_block_2(True)
+        elif move == 1:
+            gsturn(False)
+        elif move == 2:
+            gsturn(True)
+        else:
+            print("Well we probably fucked it")
+
+
 past_moves = [0]  # Holds the information on how to get back to the beginning or back up to the last junction
 node_info = []  # Holds the boolean values of the walls in each node, as we come across them
 steps = 0  # This is our current step count
